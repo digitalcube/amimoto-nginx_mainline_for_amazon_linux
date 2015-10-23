@@ -19,7 +19,7 @@ Summary: A high performance web server and reverse proxy server(for Amimoto Word
 Name: nginx
 Epoch: 1
 Version: 1.9.5
-Release: 4%{?dist}.amimoto
+Release: 6%{?dist}.amimoto
 Packager: OpsRock LLC
 Vendor: nginx inc. via OpsRock LLC
 URL: http://nginx.org/
@@ -49,7 +49,7 @@ Provides: webserver
 
 %description
 nginx [engine x] is an HTTP and reverse proxy server, as well as
-a mail proxy server.
+a mail proxy server. Includes default keypairs for TLS.
 
 %if 0%{?suse_version} == 1315
 %debug_package
@@ -174,6 +174,34 @@ if [ $1 -eq 2 ]; then
     chmod 700 /var/lib/nginx
     chmod 700 /var/lib/nginx/tmp
     chmod 700 /var/log/nginx
+fi
+# Create default KeyPair
+umask 077
+if [ -f /etc/pki/tls/private/amimoto.default.key -o -f /etc/pki/tls/certs/amimoto.default.crt ]; then
+   exit 0
+fi
+
+if [ ! -f /etc/pki/tls/private/amimoto.default.key ] ; then
+/usr/bin/openssl genrsa -rand /proc/apm:/proc/cpuinfo:/proc/dma:/proc/filesystems:/proc/interrupts:/proc/ioports:/proc/pci:/proc/rtc:/proc/uptime 2048 > /etc/pki/tls/private/amimoto.default.key 2> /dev/null
+fi
+
+FQDN=`hostname`
+if [ "x${FQDN}" = "x" ]; then
+   FQDN=amimoto.default.localdomain
+fi
+
+if [ ! -f /etc/pki/tls/certs/amimoto.default.crt ] ; then
+cat << EOF | /usr/bin/openssl req -new -key /etc/pki/tls/private/amimoto.default.key \
+         -x509 -days 3650 -set_serial $RANDOM \
+         -out /etc/pki/tls/certs/amimoto.default.crt 2>/dev/null
+--
+SomeState
+SomeCity
+SomeOrganization
+SomeOrganizationalUnit
+${FQDN}
+amimoto@${FQDN}
+EOF
 fi
 
 %preun
