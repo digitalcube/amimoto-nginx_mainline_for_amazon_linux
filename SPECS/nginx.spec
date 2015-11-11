@@ -18,8 +18,8 @@ BuildRequires: openssl-devel >= 1.0.1
 Summary: A high performance web server and reverse proxy server(for Amimoto Wordpress preview 1.9.x)
 Name: nginx
 Epoch: 1
-Version: 1.9.5
-Release: 6%{?dist}.amimoto
+Version: 1.9.6
+Release: 1%{?dist}.amimoto
 Packager: OpsRock LLC
 Vendor: nginx inc. via OpsRock LLC
 URL: http://nginx.org/
@@ -216,5 +216,7 @@ if [ $1 -ge 1 ]; then
 fi
 
 %changelog
+* Wed Nov 11 2015 Yukihiko Sawanobori <sawanoboriyu@higanworks.com>
+- 1.9.6
 * Fri Oct 23 2015 Yukihiko Sawanobori <sawanoboriyu@higanworks.com>
 - 1.9.5
