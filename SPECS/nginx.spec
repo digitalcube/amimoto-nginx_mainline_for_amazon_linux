@@ -216,7 +216,7 @@ if [ $1 -ge 1 ]; then
 fi
 
 %changelog
-* Wed 27 2016 Yukihiko Sawanobori <sawanoboriyu@higanworks.com>
+* Wed Jan 27 2016 Yukihiko Sawanobori <sawanoboriyu@higanworks.com>
 - 1.9.10
 * Thu Dec 10 2015 Yukihiko Sawanobori <sawanoboriyu@higanworks.com>
 - 1.9.9
