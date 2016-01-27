@@ -13,6 +13,6 @@ $ git clone https://github.com/OpsRockin/nginx_preview_for_amimoto.git ~/rpmbuil
 ```
 $ cd ~/rpmbuild
 $ sudo yum -y install pcre-devel openssl-devel libxml2-devel libxslt-devel gd-devel perl-devel perl-ExtUtils-Embed geoip-devel gperftools-devel
-$ wget http://nginx.org/download/nginx-1.9.9.tar.gz -O SOURCES/nginx-1.9.9.tar.gz
+$ wget http://nginx.org/download/nginx-1.9.10.tar.gz -O SOURCES/nginx-1.9.10.tar.gz
 $ rpmbuild -ba SPECS/nginx.spec
 ```

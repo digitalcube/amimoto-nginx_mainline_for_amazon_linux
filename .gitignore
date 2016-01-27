@@ -1,2 +1,6 @@
 /RPMS/
 /SRPMS/
+/bin/
+.kitchen/
+.kitchen.local.yml
+/.envrc
