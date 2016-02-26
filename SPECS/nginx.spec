@@ -19,7 +19,7 @@ Summary: A high performance web server and reverse proxy server(for Amimoto Word
 Name: nginx
 Epoch: 1
 Version: 1.9.12
-Release: 1%{?dist}.amimoto
+Release: 2%{?dist}.amimoto
 Packager: OpsRock LLC
 Vendor: nginx inc. via OpsRock LLC
 URL: http://nginx.org/
@@ -216,6 +216,9 @@ if [ $1 -ge 1 ]; then
 fi
 
 %changelog
+* Fri Feb 26 2016 Yukihiko Sawanobori <sawanoboriyu@higanworks.com>
+- 1.9.12 rev 2
+- enable stream modules
 * Thu Feb 25 2016 Yukihiko Sawanobori <sawanoboriyu@higanworks.com>
 - 1.9.12
 * Wed Feb 10 2016 Yukihiko Sawanobori <sawanoboriyu@higanworks.com>
