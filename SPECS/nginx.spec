@@ -54,12 +54,12 @@ Provides: webserver
 nginx [engine x] is an HTTP and reverse proxy server, as well as
 a mail proxy server. Includes default keypairs for TLS.
 
-%package        dynamic-modules
-Summary:        Dinamic-Moudles for %{name}
-Requires:       %{name}
+%package        mod-http_cache_purge23
+Summary:        Dinamic Builded http_cache_purge module for %{name}.
+Requires:       %{name} >= 1.9.11
 
-%description    dynamic-modules
-The dynamic-modules for %{name} package.
+%description    mod-http_cache_purge23
+Dinamic Builded http_cache_purge module for %{name}.
 
 %if 0%{?suse_version} == 1315
 %debug_package
@@ -168,9 +168,9 @@ make %{?_smp_mflags}
 %attr(0700,nginx,nginx) %dir %{_localstatedir}/lib/nginx/tmp
 %attr(0700,nginx,nginx) %dir %{_localstatedir}/log/nginx
 
-%files dynamic-modules
+%files mod-http_cache_purge23
 %dir %{_datadir}/nginx/modules
-%{_datadir}/nginx/modules/*
+%{_datadir}/nginx/modules/ngx_http_cache_purge_module.so
 
 
 %pre
