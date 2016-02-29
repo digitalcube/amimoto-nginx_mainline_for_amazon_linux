@@ -13,13 +13,15 @@ Requires(post): chkconfig
 Requires: openssl >= 1.0.1
 BuildRequires: openssl-devel >= 1.0.1
 
+## dynamic-modules
+%define ngx_cache_purge_rev 2.3.dynamic
 # end of distribution specific definitions
 
 Summary: A high performance web server and reverse proxy server(for Amimoto Wordpress preview 1.9.x)
 Name: nginx
 Epoch: 1
 Version: 1.9.12
-Release: 2%{?dist}.amimoto
+Release: 3%{?dist}.amimoto
 Packager: OpsRock LLC
 Vendor: nginx inc. via OpsRock LLC
 URL: http://nginx.org/
@@ -30,6 +32,7 @@ Source2: nginx.init
 Source3: nginx.sysconf
 Source4: nginx.conf
 Source5: virtual.conf
+Source6: https://github.com/OpsRockin/ngx_cache_purge/archive/%{ngx_cache_purge_rev}.tar.gz
 
 License: 2-clause BSD-like license
 
@@ -51,15 +54,22 @@ Provides: webserver
 nginx [engine x] is an HTTP and reverse proxy server, as well as
 a mail proxy server. Includes default keypairs for TLS.
 
+%package        dynamic-modules
+Summary:        Dinamic-Moudles for %{name}
+Requires:       %{name}
+
+%description    dynamic-modules
+The dynamic-modules for %{name} package.
+
 %if 0%{?suse_version} == 1315
 %debug_package
 %endif
 
 %prep
-%setup -q
+%setup -q -a 6
 
 %build
-./configure --prefix=/usr/share/nginx --sbin-path=/usr/sbin/nginx --conf-path=/etc/nginx/nginx.conf --error-log-path=/var/log/nginx/error.log --http-log-path=/var/log/nginx/access.log --http-client-body-temp-path=/var/lib/nginx/tmp/client_body --http-proxy-temp-path=/var/lib/nginx/tmp/proxy --http-fastcgi-temp-path=/var/lib/nginx/tmp/fastcgi --http-uwsgi-temp-path=/var/lib/nginx/tmp/uwsgi --http-scgi-temp-path=/var/lib/nginx/tmp/scgi --pid-path=/var/run/nginx.pid --lock-path=/var/lock/subsys/nginx --user=nginx --group=nginx --with-file-aio --with-ipv6 --with-http_ssl_module --with-http_realip_module --with-http_addition_module --with-http_xslt_module --with-http_image_filter_module --with-http_geoip_module --with-http_sub_module --with-http_dav_module --with-http_flv_module --with-http_mp4_module --with-http_gunzip_module --with-http_gzip_static_module --with-http_random_index_module --with-http_secure_link_module --with-http_degradation_module --with-http_stub_status_module --with-http_perl_module --with-mail --with-mail_ssl_module --with-pcre --with-pcre-jit --with-google_perftools_module --with-debug --with-cc-opt='-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m64 -mtune=generic' --with-ld-opt=' -Wl,-E' --with-http_v2_module --with-stream --with-stream_ssl_module
+./configure --prefix=/usr/share/nginx --sbin-path=/usr/sbin/nginx --conf-path=/etc/nginx/nginx.conf --error-log-path=/var/log/nginx/error.log --http-log-path=/var/log/nginx/access.log --http-client-body-temp-path=/var/lib/nginx/tmp/client_body --http-proxy-temp-path=/var/lib/nginx/tmp/proxy --http-fastcgi-temp-path=/var/lib/nginx/tmp/fastcgi --http-uwsgi-temp-path=/var/lib/nginx/tmp/uwsgi --http-scgi-temp-path=/var/lib/nginx/tmp/scgi --pid-path=/var/run/nginx.pid --lock-path=/var/lock/subsys/nginx --user=nginx --group=nginx --with-file-aio --with-ipv6 --with-http_ssl_module --with-http_realip_module --with-http_addition_module --with-http_xslt_module --with-http_image_filter_module --with-http_geoip_module --with-http_sub_module --with-http_dav_module --with-http_flv_module --with-http_mp4_module --with-http_gunzip_module --with-http_gzip_static_module --with-http_random_index_module --with-http_secure_link_module --with-http_degradation_module --with-http_stub_status_module --with-http_perl_module --with-mail --with-mail_ssl_module --with-pcre --with-pcre-jit --with-google_perftools_module --with-debug --with-cc-opt='-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m64 -mtune=generic' --with-ld-opt=' -Wl,-E' --with-http_v2_module --with-stream --with-stream_ssl_module --add-dynamic-module=$RPM_BUILD_DIR/%{name}-%{version}/ngx_cache_purge-%{ngx_cache_purge_rev}
 make %{?_smp_mflags}
 
 %install
@@ -158,6 +168,11 @@ make %{?_smp_mflags}
 %attr(0700,nginx,nginx) %dir %{_localstatedir}/lib/nginx/tmp
 %attr(0700,nginx,nginx) %dir %{_localstatedir}/log/nginx
 
+%files dynamic-modules
+%dir %{_datadir}/nginx/modules
+%{_datadir}/nginx/modules/*
+
+
 %pre
 getent group nginx > /dev/null || groupadd -r nginx
 getent passwd nginx > /dev/null || \
@@ -216,6 +231,9 @@ if [ $1 -ge 1 ]; then
 fi
 
 %changelog
+* Mon Feb 29 2016 Yukihiko Sawanobori <sawanoboriyu@higanworks.com>
+- 1.9.12 rev 3
+- build ngx_cache_purge 2.3 as dynamic
 * Fri Feb 26 2016 Yukihiko Sawanobori <sawanoboriyu@higanworks.com>
 - 1.9.12 rev 2
 - enable stream modules
