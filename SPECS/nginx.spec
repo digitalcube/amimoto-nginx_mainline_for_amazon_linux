@@ -161,6 +161,7 @@ make %{?_smp_mflags}
 %dir %{_datadir}/nginx
 %dir %{_datadir}/nginx/html
 %{_datadir}/nginx/html/*
+%dir %{_datadir}/nginx/modules
 
 %attr(0755,root,root) %dir %{_localstatedir}/cache/nginx
 %attr(0755,root,root) %dir %{_localstatedir}/log/nginx
@@ -169,7 +170,6 @@ make %{?_smp_mflags}
 %attr(0700,nginx,nginx) %dir %{_localstatedir}/log/nginx
 
 %files mod-http_cache_purge23
-%dir %{_datadir}/nginx/modules
 %{_datadir}/nginx/modules/ngx_http_cache_purge_module.so
 
 
