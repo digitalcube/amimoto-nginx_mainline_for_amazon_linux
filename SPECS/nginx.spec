@@ -35,7 +35,7 @@ Source4: nginx.conf
 Source5: virtual.conf
 Source6: ngx_cache_purge_%{ngx_cache_purge_rev}.tar.gz
 Source7: ngx_mruby_v%{ngx_mruby_rev}.tar.gz
-Source8: ngx_mruby/build_config.rb
+Source8: ngx_mruby_build_config.rb
 
 License: 2-clause BSD-like license
 
