@@ -33,8 +33,8 @@ Source2: nginx.init
 Source3: nginx.sysconf
 Source4: nginx.conf
 Source5: virtual.conf
-Source6: https://github.com/OpsRockin/ngx_cache_purge/archive/%{ngx_cache_purge_rev}.tar.gz
-Source7: https://github.com/matsumoto-r/ngx_mruby/archive/%{ngx_mruby_rev}.tar.gz
+Source6: ngx_cache_purge_%{ngx_cache_purge_rev}.tar.gz
+Source7: ngx_mruby_%{ngx_mruby_rev}.tar.gz
 
 License: 2-clause BSD-like license
 
