@@ -15,7 +15,8 @@ BuildRequires: openssl-devel >= 1.0.1
 
 ## dynamic-modules
 %define ngx_cache_purge_rev 2.3.dynamic
-%define ngx_mruby_rev 1.17.1
+%define ngx_mruby_rev v1.17.1
+%define ngx_mruby_src https://github.com/matsumoto-r/ngx_mruby.git
 # end of distribution specific definitions
 
 Summary: A high performance web server and reverse proxy server(for Amimoto Wordpress preview 1.11.x)
@@ -34,8 +35,7 @@ Source3: nginx.sysconf
 Source4: nginx.conf
 Source5: virtual.conf
 Source6: ngx_cache_purge_%{ngx_cache_purge_rev}.tar.gz
-Source7: ngx_mruby_v%{ngx_mruby_rev}.tar.gz
-Source8: ngx_mruby_build_config.rb
+Source7: ngx_mruby_build_config.rb
 
 License: 2-clause BSD-like license
 
@@ -69,10 +69,11 @@ Dinamic Builded http_cache_purge module for %{name}.
 %endif
 
 %prep
-%setup -q -a 6 -a 7
+%setup -q -a 6
 # Start Building mruby
-cd ngx_mruby-%{ngx_mruby_rev}
-%{__cp} -f %{SOURCE8} ./
+git clone %{ngx_mruby_src} -b %{ngx_mruby_rev} --depth 1
+cd ngx_mruby
+%{__cp} -f %{SOURCE7} ./
 ./configure --with-ngx-src-root=../
 make build_mruby -j 4
 make generate_gems_config

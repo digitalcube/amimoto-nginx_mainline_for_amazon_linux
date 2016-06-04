@@ -15,6 +15,5 @@ $ cd ~/rpmbuild
 $ sudo yum -y install pcre-devel openssl-devel libxml2-devel libxslt-devel gd-devel perl-devel perl-ExtUtils-Embed geoip-devel gperftools-devel
 $ wget http://nginx.org/download/nginx-1.11.1.tar.gz -O SOURCES/nginx-1.11.1.tar.gz
 $ wget https://github.com/OpsRockin/ngx_cache_purge/archive/2.3.dynamic.tar.gz -O SOURCES/ngx_cache_purge_2.3.dynamic.tar.gz
-$ wget https://github.com/matsumoto-r/ngx_mruby/archive/v1.17.1.tar.gz -O SOURCES/ngx_mruby_v1.17.1.tar.gz
 $ rpmbuild -ba SPECS/nginx.spec
 ```
