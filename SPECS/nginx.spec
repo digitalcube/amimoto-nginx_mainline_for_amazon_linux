@@ -22,7 +22,7 @@ Summary: A high performance web server and reverse proxy server(for Amimoto Word
 Name: nginx
 Epoch: 1
 Version: 1.11.1
-Release: 1%{?dist}.amimoto
+Release: 2%{?dist}.amimoto
 Packager: OpsRock LLC
 Vendor: nginx inc. via OpsRock LLC
 URL: http://nginx.org/
