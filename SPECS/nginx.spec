@@ -62,14 +62,14 @@ Summary:        Dinamic built http_cache_purge module for %{name}.
 Requires:       %{name} >= 1.9.11
 
 %description    mod-http_cache_purge23
-Dinamic Builded http_cache_purge module for %{name}.
+Dinamic built http_cache_purge module for %{name}.
 
-%package        mod-ngx_mruby-%{ngx_mruby_rev}
-Summary:        Dinamic built ngx_mruby module for %{name}.
+%package        mod-ngx_mruby
+Summary:        Dinamic built ngx_mruby %{ngx_mruby_rev} module for %{name}.
 Requires:       %{name} >= 1.9.11
 
-%description    mod-ngx_mruby-%{ngx_mruby_rev}
-Dinamic Builded http_cache_purge module for %{name}.
+%description    mod-ngx_mruby
+Dinamic built ngx_mruby %{ngx_mruby_rev} module for %{name}.
 
 %if 0%{?suse_version} == 1315
 %debug_package
@@ -190,7 +190,7 @@ make %{?_smp_mflags}
 %files mod-http_cache_purge23
 %{_datadir}/nginx/modules/ngx_http_cache_purge_module.so
 
-%files mod-ngx_mruby-%{ngx_mruby_rev}
+%files mod-ngx_mruby
 %{_datadir}/nginx/modules/ngx_http_mruby_module.so
 
 %pre
@@ -251,6 +251,9 @@ if [ $1 -ge 1 ]; then
 fi
 
 %changelog
+* Mon Jun 6 2016 Yukihiko Sawanobori <sawanoboriyu@higanworks.com>
+- 1.11.1-2
+- Include Dynamic Module ngx_mruby v1.17.2
 * Wed Jun 1 2016 Yukihiko Sawanobori <sawanoboriyu@higanworks.com>
 - 1.11.1
 * Wed May 25 2016 Yukihiko Sawanobori <sawanoboriyu@higanworks.com>
