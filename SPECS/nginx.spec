@@ -68,7 +68,7 @@ Dinamic Builded http_cache_purge module for %{name}.
 Summary:        Dinamic built ngx_mruby module for %{name}.
 Requires:       %{name} >= 1.9.11
 
-%description    mod-http_cache_purge23
+%description    mod-ngx_mruby-%{ngx_mruby_rev}
 Dinamic Builded http_cache_purge module for %{name}.
 
 %if 0%{?suse_version} == 1315
