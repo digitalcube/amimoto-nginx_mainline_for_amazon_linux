@@ -58,7 +58,14 @@ nginx [engine x] is an HTTP and reverse proxy server, as well as
 a mail proxy server. Includes default keypairs for TLS.
 
 %package        mod-http_cache_purge23
-Summary:        Dinamic Builded http_cache_purge module for %{name}.
+Summary:        Dinamic built http_cache_purge module for %{name}.
+Requires:       %{name} >= 1.9.11
+
+%description    mod-http_cache_purge23
+Dinamic Builded http_cache_purge module for %{name}.
+
+%package        mod-ngx_mruby-%{ngx_mruby_rev}
+Summary:        Dinamic built ngx_mruby module for %{name}.
 Requires:       %{name} >= 1.9.11
 
 %description    mod-http_cache_purge23
@@ -183,6 +190,8 @@ make %{?_smp_mflags}
 %files mod-http_cache_purge23
 %{_datadir}/nginx/modules/ngx_http_cache_purge_module.so
 
+%files mod-ngx_mruby-%{ngx_mruby_rev}
+%{_datadir}/nginx/modules/ngx_http_mruby_module.so
 
 %pre
 getent group nginx > /dev/null || groupadd -r nginx
