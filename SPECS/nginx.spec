@@ -3,6 +3,7 @@
 %define nginx_home %{_localstatedir}/cache/nginx
 %define nginx_user nginx
 %define nginx_group nginx
+%define mruby_dir /opt/mruby
 
 # distribution specific definitions
 %define use_systemd (0%{?fedora} && 0%{?fedora} >= 18) || (0%{?rhel} && 0%{?rhel} >= 7) || (0%{?suse_version} == 1315)
@@ -23,7 +24,7 @@ Summary: A high performance web server and reverse proxy server(for Amimoto Word
 Name: nginx
 Epoch: 1
 Version: 1.11.1
-Release: 2%{?dist}.amimoto
+Release: 3%{?dist}.amimoto
 Packager: OpsRock LLC
 Vendor: nginx inc. via OpsRock LLC
 URL: http://nginx.org/
@@ -70,6 +71,28 @@ Requires:       %{name} >= 1.9.11
 
 %description    mod-ngx_mruby
 Dinamic built ngx_mruby %{ngx_mruby_rev} module for %{name}.
+Avalable modules are...
+// ngx_mruby extended classes
+  - ngx_mruby_mrblib
+  - rack-based-api
+// mrbgems
+  - iij/mruby-io
+  - iij/mruby-env
+  - iij/mruby-dir
+  - iij/mruby-digest
+  - iij/mruby-process
+  - iij/mruby-pack
+  - iij/mruby-socket
+  - mattn/mruby-json
+  - mattn/mruby-onig-regexp
+  - matsumoto-r/mruby-redis
+  - matsumoto-r/mruby-vedis
+  - matsumoto-r/mruby-sleep
+  - matsumoto-r/mruby-userdata
+  - matsumoto-r/mruby-uname
+  - matsumoto-r/mruby-mutex
+  - matsumoto-r/mruby-localmemcache
+  - matsumoto-r/mruby-httprequest
 
 %if 0%{?suse_version} == 1315
 %debug_package
@@ -140,6 +163,19 @@ make %{?_smp_mflags}
 %{__rm} -rf $RPM_BUILD_ROOT/usr/local
 %{__rm} $RPM_BUILD_ROOT/usr/lib64/perl5/perllocal.pod
 
+# install mruby binaries
+%{__mkdir} -p $RPM_BUILD_ROOT%{mruby_dir}/bin
+%{__install} -p $RPM_BUILD_DIR/%{name}-%{version}/ngx_mruby/mruby/bin/mruby-config \
+   $RPM_BUILD_ROOT%{mruby_dir}/bin/mruby-config
+%{__install} -p $RPM_BUILD_DIR/%{name}-%{version}/ngx_mruby/mruby/bin/mirb \
+   $RPM_BUILD_ROOT%{mruby_dir}/bin/mirb
+%{__install} -p $RPM_BUILD_DIR/%{name}-%{version}/ngx_mruby/mruby/bin/mruby \
+   $RPM_BUILD_ROOT%{mruby_dir}/bin/mruby
+%{__install} -p $RPM_BUILD_DIR/%{name}-%{version}/ngx_mruby/mruby/bin/mrbc \
+   $RPM_BUILD_ROOT%{mruby_dir}/bin/mrbc
+%{__install} -p $RPM_BUILD_DIR/%{name}-%{version}/ngx_mruby/mruby/bin/mruby-strip \
+   $RPM_BUILD_ROOT%{mruby_dir}/bin/mruby-strip
+
 %clean
 %{__rm} -rf $RPM_BUILD_ROOT
 
@@ -182,7 +218,6 @@ make %{?_smp_mflags}
 %dir %{_datadir}/nginx/modules
 
 %attr(0755,root,root) %dir %{_localstatedir}/cache/nginx
-%attr(0755,root,root) %dir %{_localstatedir}/log/nginx
 %attr(0700,nginx,nginx) %dir %{_localstatedir}/lib/nginx
 %attr(0700,nginx,nginx) %dir %{_localstatedir}/lib/nginx/tmp
 %attr(0700,nginx,nginx) %dir %{_localstatedir}/log/nginx
@@ -192,6 +227,11 @@ make %{?_smp_mflags}
 
 %files mod-ngx_mruby
 %{_datadir}/nginx/modules/ngx_http_mruby_module.so
+%{mruby_dir}/bin/mruby-config
+%{mruby_dir}/bin/mirb
+%{mruby_dir}/bin/mruby
+%{mruby_dir}/bin/mrbc
+%{mruby_dir}/bin/mruby-strip
 
 %pre
 getent group nginx > /dev/null || groupadd -r nginx
