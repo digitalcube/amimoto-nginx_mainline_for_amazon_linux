@@ -164,7 +164,7 @@ make %{?_smp_mflags}
 %{__rm} $RPM_BUILD_ROOT/usr/lib64/perl5/perllocal.pod
 
 # install mruby binaries
-%{__mkdir} -p $RPM_BUILD_ROOT%{_mruby_dir}/bin
+%{__mkdir} -p $RPM_BUILD_ROOT%{mruby_dir}/bin
 %{__install} -p $RPM_BUILD_DIR/%{name}-%{version}/ngx_mruby/mruby/bin/mruby-config \
    $RPM_BUILD_ROOT%{mruby_dir}/bin/mruby-config
 %{__install} -p $RPM_BUILD_DIR/%{name}-%{version}/ngx_mruby/mruby/bin/mirb \
