@@ -28,6 +28,17 @@ Add nginx.conf to enable module below.
 load_module /path/to/modules/ngx_http_mruby_module.so;
 ```
 
+example
+
+```
+location /hello {
+    mruby_content_handler_code '
+        Nginx.rputs "hello"
+        Nginx.echo "world!"
+    ';
+}
+```
+
 
 ### [ngx_cache_purge](https://github.com/FRiCKLE/ngx_cache_purge)
 
