@@ -16,14 +16,14 @@ BuildRequires: openssl-devel >= 1.0.1
 
 ## dynamic-modules
 %define ngx_cache_purge_rev 2.3.dynamic
-%define ngx_mruby_rev v1.18.4
+%define ngx_mruby_rev v1.18.7
 %define ngx_mruby_src https://github.com/matsumoto-r/ngx_mruby.git
 # end of distribution specific definitions
 
 Summary: A high performance web server and reverse proxy server(for Amimoto Wordpress preview 1.11.x)
 Name: nginx
 Epoch: 1
-Version: 1.11.4
+Version: 1.11.5
 Release: 1%{?dist}.amimoto
 Packager: OpsRock LLC
 Vendor: nginx inc. via OpsRock LLC
@@ -291,6 +291,9 @@ if [ $1 -ge 1 ]; then
 fi
 
 %changelog
+* Wed Oct 12 2016 Yukihiko Sawanobori <sawanoboriyu@higanworks.com>
+- 1.11.5
+- Include Dynamic Module ngx_mruby v1.18.7
 * Mon Jun 6 2016 Yukihiko Sawanobori <sawanoboriyu@higanworks.com>
 - 1.11.1-2
 - Include Dynamic Module ngx_mruby v1.17.2
