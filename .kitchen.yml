@@ -16,9 +16,9 @@ provisioner:
   name: shell
 
 platforms:
-  - name: amazon-2016.03.3
+  - name: amazon-2016.09.0
     driver:
-      image_id: <%= ENV['AWS_EC2_AMI_ID'] || 'ami-374db956' %> # Tokyo
+      image_id: <%= ENV['AWS_EC2_AMI_ID'] || 'ami-0c11b26d' %> # Tokyo
       instance_type: c3.large
 
 suites:
