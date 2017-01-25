@@ -105,7 +105,7 @@ git clone %{ngx_mruby_src} -b %{ngx_mruby_rev} --depth 1
 cd ngx_mruby
 %{__cp} -f %{SOURCE7} ./
 ./configure --with-ngx-src-root=../
-make build_mruby_with_fpic -j 4
+BUILD_DYNAMIC_MODULE=true make build_mruby -j 4
 make generate_gems_config_dynamic
 # End Building mruby
 
@@ -295,7 +295,7 @@ fi
 - 1.11.9
 * Wed Jan 04 2017 Yukihiko Sawanobori <sawanoboriyu@higanworks.com>
 - 1.11.8
-* Fri Dec 17 2016 Yukihiko Sawanobori <sawanoboriyu@higanworks.com>
+* Sat Dec 17 2016 Yukihiko Sawanobori <sawanoboriyu@higanworks.com>
 - 1.11.7
 - add –with-threads  to build option
 * Tue Nov 22 2016 Yukihiko Sawanobori <sawanoboriyu@higanworks.com>
