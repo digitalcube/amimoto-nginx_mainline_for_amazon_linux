@@ -25,7 +25,7 @@ $ rpmbuild -ba SPECS/nginx.spec
 Add nginx.conf to enable module below.
 
 ```
-load_module /path/to/modules/ngx_http_mruby_module.so;
+load_module modules/ngx_http_mruby_module.so;
 ```
 
 example
@@ -47,7 +47,7 @@ location /hello {
 Add nginx.conf to enable module below.
 
 ```
-load_module /path/to/modules/ngx_http_cache_purge_module.so;
+load_module modules/ngx_http_cache_purge_module.so;
 ```
 
 
