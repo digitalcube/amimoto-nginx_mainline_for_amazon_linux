@@ -26,7 +26,7 @@ or Docker
 wget http://nginx.org/download/nginx-1.13.0.tar.gz -O SOURCES/nginx-1.13.0.tar.gz
 wget https://github.com/OpsRockin/ngx_cache_purge/archive/2.3.dynamic.tar.gz -O SOURCES/ngx_cache_purge_2.3.dynamic.tar.gz
 docker build -t local/nginx_preview_for_amimoto .
-docker run --rm -v `pwd`:/root/rpmbuild local/nginx_preview_for_amimoto
+docker run --rm -v `pwd`:/root/rpmbuild:cached local/nginx_preview_for_amimoto
 ```
 
 
