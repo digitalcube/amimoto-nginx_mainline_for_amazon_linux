@@ -2,7 +2,7 @@
 /SRPMS/
 /BUILD/
 /BUILDROOT/
-/SOURCES/
+/SOURCES/*.gz
 /bin/
 .bundle/
 /vendor/
