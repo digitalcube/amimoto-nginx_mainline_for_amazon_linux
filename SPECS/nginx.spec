@@ -16,7 +16,7 @@ BuildRequires: openssl-devel >= 1.0.1
 
 ## dynamic-modules
 %define ngx_cache_purge_rev 2.3.dynamic
-%define ngx_mruby_rev v1.19.5
+%define ngx_mruby_rev v1.19.4
 %define ngx_mruby_src https://github.com/matsumoto-r/ngx_mruby.git
 # end of distribution specific definitions
 
@@ -148,7 +148,8 @@ make generate_gems_config_dynamic
   --with-pcre-jit \
   --with-google_perftools_module \
   --with-debug \
-  --with-cc-opt='-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m64 -mtune=generic' --with-ld-opt=' -Wl,-E' \
+  --with-cc-opt='-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m64 -mtune=generic' \
+  --with-ld-opt='-Wl,-E' \
   --with-http_v2_module \
   --with-stream \
   --with-stream_ssl_module \
@@ -339,7 +340,6 @@ fi
 %changelog
 * Wed Jul 12 2017 Yukihiko Sawanobori <sawanoboriyu@higanworks.com>
 - 1.13.3
-- ngx_mruby 1.19.5
 * Wed Jun 28 2017 Yukihiko Sawanobori <sawanoboriyu@higanworks.com>
 - 1.13.2
 * Wed May 31 2017 Yukihiko Sawanobori <sawanoboriyu@higanworks.com>

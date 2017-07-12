@@ -9,3 +9,5 @@ jobs:
       - checkout
       - run: ./ci/build_deps.sh
       - run: rpmbuild -ba SPECS/nginx.spec
+      - store_artifacts:
+          path: /root/rpmbuild/RPMS
