@@ -25,6 +25,7 @@ jobs:
       - run: rpm -ivh RPMS/x86_64/nginx-*
       - run: cp -f ./ci/nginx.conf /etc/nginx/nginx.conf
       - run: nginx -t
+      - run: echo "NETWORKING=yes" >/etc/sysconfig/network
       - run: service nginx start
       - run: curl -vf 127.0.0.1/hello
       - store_artifacts:
