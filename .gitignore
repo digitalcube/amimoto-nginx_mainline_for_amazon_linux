@@ -1,6 +1,11 @@
 /RPMS/
 /SRPMS/
+/BUILD/
+/BUILDROOT/
+/SOURCES/
 /bin/
+.bundle/
+/vendor/
 .kitchen/
 .kitchen.local.yml
 /.envrc
