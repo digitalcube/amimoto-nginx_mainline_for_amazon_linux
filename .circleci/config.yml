@@ -7,5 +7,5 @@ jobs:
     working_directory: /root/rpmbuild
     steps:
       - checkout
-      - run: ./ci/depends.sh
+      - run: ./ci/build_deps.sh
       - run: rpmbuild -ba SPECS/nginx.spec
