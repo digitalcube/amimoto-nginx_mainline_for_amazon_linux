@@ -9,5 +9,10 @@ jobs:
       - checkout
       - run: ./ci/build_deps.sh
       - run: rpmbuild -ba SPECS/nginx.spec
+      - run: rpm -ivh RPMS/x86_64/nginx-*
+      - run: cp -f ./ci/nginx.conf /etc/nginx/nginx.conf
+      - run: nginx -t
+      - run: service nginx start
+      - run: curl -vf 127.0.0.1/hello
       - store_artifacts:
           path: /root/rpmbuild/RPMS
