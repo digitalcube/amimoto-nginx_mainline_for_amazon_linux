@@ -21,7 +21,7 @@ jobs:
     steps:
       - attach_workspace:
           at: /tmp/workspace
-      - run: if yum install -y $(repoquery --requires nginx) ; then true ; fi
+      - run: ./ci/build_deps.sh
       - run: rpm -ivh RPMS/x86_64/nginx-*
       - run: cp -f ./ci/nginx.conf /etc/nginx/nginx.conf
       - run: nginx -t
