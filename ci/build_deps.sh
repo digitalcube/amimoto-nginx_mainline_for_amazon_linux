@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # load NGINX_VERSION
-source ../nginx_version
+source ./nginx_version
 
 yum -y update && yum -y install rpm-build git gcc make autoconf tmux \
   pcre-devel openssl-devel libxml2-devel libxslt-devel \
