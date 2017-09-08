@@ -11,7 +11,7 @@ $ git clone https://github.com/OpsRockin/nginx_preview_for_amimoto.git ~/rpmbuil
 ### Update Steps
 
 - edit `nginx_version`
-  - mod NGINX_VERSIN
+  - mod NGINX_VERSION
 - edit `SPECS/nginx.spec`
   - mod Version, Release
   - mod ngx_mruby_rev (optional)
@@ -36,8 +36,9 @@ or Docker
 source ./nginx_version
 wget http://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz -O SOURCES/nginx-${NGINX_VERSION}.tar.gz
 wget https://github.com/OpsRockin/ngx_cache_purge/archive/2.3.dynamic.tar.gz -O SOURCES/ngx_cache_purge_2.3.dynamic.tar.gz
+docker pull amazonlinux:2017.03-with-sources # to update base
 docker build -t local/nginx_preview_for_amimoto .
-docker run --rm -v `pwd`:/root/rpmbuild:cached local/nginx_preview_for_amimoto
+docker run -it --rm -v `pwd`:/root/rpmbuild:cached local/nginx_preview_for_amimoto
 ```
 
 
