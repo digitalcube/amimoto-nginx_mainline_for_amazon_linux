@@ -3,7 +3,7 @@ FROM amazonlinux:2017.03-with-sources
 RUN yum -y update && yum -y install rpm-build git gcc make autoconf tmux \
   pcre-devel openssl-devel libxml2-devel libxslt-devel \
   gd-devel perl-devel perl-ExtUtils-Embed geoip-devel gperftools-devel \
-  rubygem-rake bison
+  rubygem-rake bison gcc-c++
 
 RUN mkdir -p /root/rpmbuild
 

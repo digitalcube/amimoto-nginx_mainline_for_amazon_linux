@@ -23,9 +23,11 @@ on EC2
 
 ```
 $ source ./nginx_version
+$ source ./NPS_VERSION
 $ cd ~/rpmbuild
 $ sudo yum -y install pcre-devel openssl-devel libxml2-devel libxslt-devel gd-devel perl-devel perl-ExtUtils-Embed geoip-devel gperftools-devel
 $ wget http://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz -O SOURCES/nginx-${NGINX_VERSION}.tar.gz
+$ wget https://codeload.github.com/pagespeed/ngx_pagespeed/tar.gz/v${NPS_VERSION}-stable -O SOURCES/ngx_pagespeed_${NPS_VERSION}.tar.gz
 $ wget https://github.com/OpsRockin/ngx_cache_purge/archive/2.3.dynamic.tar.gz -O SOURCES/ngx_cache_purge_2.3.dynamic.tar.gz
 $ rpmbuild -ba SPECS/nginx.spec
 ```
@@ -34,8 +36,12 @@ or Docker
 
 ```
 source ./nginx_version
+source ./NPS_VERSION
 wget http://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz -O SOURCES/nginx-${NGINX_VERSION}.tar.gz
 wget https://github.com/OpsRockin/ngx_cache_purge/archive/2.3.dynamic.tar.gz -O SOURCES/ngx_cache_purge_2.3.dynamic.tar.gz
+wget https://codeload.github.com/pagespeed/ngx_pagespeed/tar.gz/v${NPS_VERSION}-stable -O SOURCES/ngx_pagespeed_${NPS_VERSION}.tar.gz
+# wget https://dl.google.com/dl/page-speed/psol/${NPS_VERSION}-x64.tar.gz -O SOURCES/psol_${NPS_VERSION}.tar.gz
+wget https://dl.google.com/dl/page-speed/psol/1.12.34.2-x64.tar.gz -O SOURCES/psol_${NPS_VERSION}.tar.gz # 1.12.34.3 do not have same version of psol
 docker pull amazonlinux:2017.03-with-sources # to update base
 docker build -t local/nginx_preview_for_amimoto .
 docker run -it --rm -v `pwd`:/root/rpmbuild:cached local/nginx_preview_for_amimoto
@@ -75,3 +81,16 @@ load_module modules/ngx_http_cache_purge_module.so;
 ```
 
 
+### [ngx_pagespeed](https://www.modpagespeed.com/)
+
+check latest stable
+
+```
+curl -sS https://www.modpagespeed.com/doc/release_notes | grep release_ | head -1 | sed -e "s/^.*release_\([0-9\.]*\)-beta.*/\1/"
+#=> <h2 id="release_1.12.34.3-stable">Release 1.12.34.3-stable</h2>
+```
+
+```
+load_module modules/ngx_pagespeed.so;
+pagespeed on;
+```

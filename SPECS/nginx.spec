@@ -16,7 +16,8 @@ BuildRequires: openssl-devel >= 1.0.1
 
 ## dynamic-modules
 %define ngx_cache_purge_rev 2.3.dynamic
-%define ngx_mruby_rev v1.20.0
+%define ngx_pagespeed_rev 1.12.34.3
+%define ngx_mruby_rev v1.20.1
 %define ngx_mruby_src https://github.com/matsumoto-r/ngx_mruby.git
 # end of distribution specific definitions
 
@@ -24,7 +25,7 @@ Summary: A high performance web server and reverse proxy server(for Amimoto Word
 Name: nginx
 Epoch: 1
 Version: 1.13.5
-Release: 1%{?dist}.amimoto
+Release: 2%{?dist}.amimoto
 Packager: OpsRock LLC
 Vendor: nginx inc. via OpsRock LLC
 URL: http://nginx.org/
@@ -37,6 +38,8 @@ Source4: nginx.conf
 Source5: virtual.conf
 Source6: ngx_cache_purge_%{ngx_cache_purge_rev}.tar.gz
 Source7: ngx_mruby_build_config.rb
+Source8: ngx_pagespeed_%{ngx_pagespeed_rev}.tar.gz
+Source9: psol_%{ngx_pagespeed_rev}.tar.gz
 
 License: 2-clause BSD-like license
 
@@ -64,6 +67,13 @@ Requires:       %{name} >= 1.9.11
 
 %description    mod-http_cache_purge23
 Dinamic built http_cache_purge module for %{name}.
+
+%package        mod-ngx_pagespeed
+Summary:        Dinamic built ngx_pagespeed module for %{name}.
+Requires:       %{name} >= 1.9.11
+
+%description    mod-ngx_pagespeed
+Dinamic built ngx_pagespeed module for %{name}.
 
 %package        mod-ngx_mruby
 Summary:        Dinamic built ngx_mruby %{ngx_mruby_rev} module for %{name}.
@@ -99,7 +109,12 @@ Avalable modules are...
 %endif
 
 %prep
-%setup -q -a 6
+%setup -q -a 6 -a 8
+# extract psol
+cd ngx_pagespeed-%{ngx_pagespeed_rev}-stable
+%{__tar} -xzf %{SOURCE9}
+cd -
+
 # Start Building mruby
 git clone %{ngx_mruby_src} -b %{ngx_mruby_rev} --depth 1
 cd ngx_mruby
@@ -110,6 +125,7 @@ make generate_gems_config_dynamic
 # End Building mruby
 
 %build
+PSOL_BINARY=${RPM_BUILD_DIR}/%{name}-%{version}/ngx_pagespeed-%{ngx_pagespeed_rev}-stable/psol/lib/Release/linux/x64/pagespeed_automatic.a \
 ./configure \
   --prefix=/usr/share/nginx \
   --sbin-path=/usr/sbin/nginx \
@@ -155,6 +171,7 @@ make generate_gems_config_dynamic
   --with-stream_ssl_module \
   --without-stream_access_module \
   --add-dynamic-module=$RPM_BUILD_DIR/%{name}-%{version}/ngx_cache_purge-%{ngx_cache_purge_rev} \
+  --add-dynamic-module=$RPM_BUILD_DIR/%{name}-%{version}/ngx_pagespeed-%{ngx_pagespeed_rev}-stable \
   --add-module=$RPM_BUILD_DIR/%{name}-%{version}/ngx_mruby/dependence/ngx_devel_kit \
   --add-dynamic-module=$RPM_BUILD_DIR/%{name}-%{version}/ngx_mruby \
   --with-threads
@@ -280,6 +297,9 @@ make %{?_smp_mflags}
 %{mruby_dir}/bin/mrbc
 %{mruby_dir}/bin/mruby-strip
 
+%files mod-ngx_pagespeed
+%{_datadir}/nginx/modules/ngx_pagespeed.so
+
 %pre
 getent group nginx > /dev/null || groupadd -r nginx
 getent passwd nginx > /dev/null || \
@@ -338,6 +358,9 @@ if [ $1 -ge 1 ]; then
 fi
 
 %changelog
+* Thu Oct 05 2017 Yukihiko Sawanobori <sawanoboriyu@higanworks.com>
+- ngx_mruby 1.20.1
+- add dynamic module Google PageSpeed 1.12.34.3
 * Fri Sep 08 2017 Yukihiko Sawanobori <sawanoboriyu@higanworks.com>
 - 1.13.5
 * Wed Aug 09 2017 Yukihiko Sawanobori <sawanoboriyu@higanworks.com>
