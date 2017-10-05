@@ -113,6 +113,8 @@ Avalable modules are...
 # extract psol
 cd ngx_pagespeed-%{ngx_pagespeed_rev}-stable
 %{__tar} -xzf %{SOURCE9}
+## should use Release force
+sed -e "s@buildtype=Debug@buildtype=Release@g" config -i
 cd -
 
 # Start Building mruby
