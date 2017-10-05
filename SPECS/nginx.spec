@@ -127,7 +127,7 @@ make generate_gems_config_dynamic
 # End Building mruby
 
 %build
-PSOL_BINARY=${RPM_BUILD_DIR}/%{name}-%{version}/ngx_pagespeed-%{ngx_pagespeed_rev}-stable/psol/lib/Release/linux/x64/pagespeed_automatic.a \
+export PSOL_BINARY=${RPM_BUILD_DIR}/%{name}-%{version}/ngx_pagespeed-%{ngx_pagespeed_rev}-stable/psol/lib/Release/linux/x64/pagespeed_automatic.a
 ./configure \
   --prefix=/usr/share/nginx \
   --sbin-path=/usr/sbin/nginx \
