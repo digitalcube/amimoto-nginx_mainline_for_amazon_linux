@@ -94,3 +94,5 @@ curl -sS https://www.modpagespeed.com/doc/release_notes | grep release_ | head -
 load_module modules/ngx_pagespeed.so;
 pagespeed on;
 ```
+
+See https://www.modpagespeed.com/doc/configuration
