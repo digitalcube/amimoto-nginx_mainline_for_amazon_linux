@@ -42,7 +42,7 @@ wget https://github.com/OpsRockin/ngx_cache_purge/archive/2.3.dynamic.tar.gz -O 
 wget https://codeload.github.com/pagespeed/ngx_pagespeed/tar.gz/v${NPS_VERSION}-stable -O SOURCES/ngx_pagespeed_${NPS_VERSION}.tar.gz
 # wget https://dl.google.com/dl/page-speed/psol/${NPS_VERSION}-x64.tar.gz -O SOURCES/psol_${NPS_VERSION}.tar.gz
 wget https://dl.google.com/dl/page-speed/psol/1.12.34.2-x64.tar.gz -O SOURCES/psol_${NPS_VERSION}.tar.gz # 1.12.34.3 do not have same version of psol
-docker pull amazonlinux:2017.03-with-sources # to update base
+docker pull amazonlinux:2017.09-with-sources # to update base
 docker build -t local/nginx_preview_for_amimoto .
 docker run -it --rm -v `pwd`:/root/rpmbuild:cached local/nginx_preview_for_amimoto
 ```
