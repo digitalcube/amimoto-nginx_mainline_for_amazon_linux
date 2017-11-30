@@ -92,7 +92,16 @@ curl -sS https://www.modpagespeed.com/doc/release_notes | grep release_ | head -
 
 ```
 load_module modules/ngx_pagespeed.so;
-pagespeed on;
+```
+
+```
+http or server {
+  pagespeed on;
+  pagespeed FileCachePath /var/ngx_pagespeed_cache;
+
+...
+
+}
 ```
 
 See https://www.modpagespeed.com/doc/configuration
