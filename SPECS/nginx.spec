@@ -111,7 +111,7 @@ Avalable modules are...
 %prep
 %setup -q -a 6 -a 8
 # extract psol
-cd ngx_pagespeed-%{ngx_pagespeed_rev}-stable
+cd incubator-pagespeed-ngx-%{ngx_pagespeed_rev}-stable
 %{__tar} -xzf %{SOURCE9}
 ## should use Release force
 sed -e "s@buildtype=Debug@buildtype=Release@g" config -i
