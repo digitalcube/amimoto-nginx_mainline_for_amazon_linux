@@ -40,8 +40,7 @@ source ./NPS_VERSION
 wget http://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz -O SOURCES/nginx-${NGINX_VERSION}.tar.gz
 wget https://github.com/OpsRockin/ngx_cache_purge/archive/2.3.dynamic.tar.gz -O SOURCES/ngx_cache_purge_2.3.dynamic.tar.gz
 wget https://codeload.github.com/apache/incubator-pagespeed-ngx/tar.gz/v${NPS_VERSION}-stable -O SOURCES/incubator-pagespeed-ngx_${NPS_VERSION}.tar.gz
-# wget https://dl.google.com/dl/page-speed/psol/${NPS_VERSION}-x64.tar.gz -O SOURCES/psol_${NPS_VERSION}.tar.gz
-wget https://dl.google.com/dl/page-speed/psol/${PSOL_VERSION}-x64.tar.gz -O SOURCES/psol_${PSOL_VERSION}.tar.gz # 1.12.34.3 do not have same version of psol
+wget https://dl.google.com/dl/page-speed/psol/${PSOL_VERSION}-x64.tar.gz -O SOURCES/psol_${PSOL_VERSION}.tar.gz
 docker pull amazonlinux:2017.09-with-sources # to update base
 docker build -t local/nginx_preview_for_amimoto .
 docker run -it --rm -v `pwd`:/root/rpmbuild:cached local/nginx_preview_for_amimoto
