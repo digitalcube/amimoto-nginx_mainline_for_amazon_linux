@@ -17,6 +17,7 @@ BuildRequires: openssl-devel >= 1.0.1
 ## dynamic-modules
 %define ngx_cache_purge_rev 2.3.dynamic
 %define ngx_pagespeed_rev 1.12.34.3
+%define psol_rev 1.12.34.2
 %define ngx_mruby_rev v1.20.1
 %define ngx_mruby_src https://github.com/matsumoto-r/ngx_mruby.git
 # end of distribution specific definitions
@@ -38,8 +39,8 @@ Source4: nginx.conf
 Source5: virtual.conf
 Source6: ngx_cache_purge_%{ngx_cache_purge_rev}.tar.gz
 Source7: ngx_mruby_build_config.rb
-Source8: ngx_pagespeed_%{ngx_pagespeed_rev}.tar.gz
-Source9: psol_%{ngx_pagespeed_rev}.tar.gz
+Source8: incubator-pagespeed-ngx_%{ngx_pagespeed_rev}.tar.gz
+Source9: psol_%{psol_rev}.tar.gz
 
 License: 2-clause BSD-like license
 
@@ -127,7 +128,7 @@ make generate_gems_config_dynamic
 # End Building mruby
 
 %build
-export PSOL_BINARY=${RPM_BUILD_DIR}/%{name}-%{version}/ngx_pagespeed-%{ngx_pagespeed_rev}-stable/psol/lib/Release/linux/x64/pagespeed_automatic.a
+export PSOL_BINARY=${RPM_BUILD_DIR}/%{name}-%{version}/incubator-pagespeed-ngx-%{ngx_pagespeed_rev}-stable/psol/lib/Release/linux/x64/pagespeed_automatic.a
 ./configure \
   --prefix=/usr/share/nginx \
   --sbin-path=/usr/sbin/nginx \
