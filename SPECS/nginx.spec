@@ -173,7 +173,7 @@ export PSOL_BINARY=${RPM_BUILD_DIR}/%{name}-%{version}/ngx_pagespeed-%{ngx_pages
   --with-stream_ssl_module \
   --without-stream_access_module \
   --add-dynamic-module=$RPM_BUILD_DIR/%{name}-%{version}/ngx_cache_purge-%{ngx_cache_purge_rev} \
-  --add-dynamic-module=$RPM_BUILD_DIR/%{name}-%{version}/ngx_pagespeed-%{ngx_pagespeed_rev}-stable \
+  --add-dynamic-module=$RPM_BUILD_DIR/%{name}-%{version}/incubator-pagespeed-ngx-%{ngx_pagespeed_rev}-stable \
   --add-module=$RPM_BUILD_DIR/%{name}-%{version}/ngx_mruby/dependence/ngx_devel_kit \
   --add-dynamic-module=$RPM_BUILD_DIR/%{name}-%{version}/ngx_mruby \
   --with-threads
