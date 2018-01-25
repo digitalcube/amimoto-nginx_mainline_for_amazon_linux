@@ -1,70 +1,39 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    artifactory (2.8.2)
-    aws-sdk (2.10.4)
-      aws-sdk-resources (= 2.10.4)
-    aws-sdk-core (2.10.4)
-      aws-sigv4 (~> 1.0)
-      jmespath (~> 1.0)
-    aws-sdk-resources (2.10.4)
-      aws-sdk-core (= 2.10.4)
-    aws-sigv4 (1.0.0)
-    excon (0.57.0)
+    domain_name (0.5.20170404)
+      unf (>= 0.0.5, < 1.0.0)
     highline (1.6.20)
-    jmespath (1.3.1)
+    http-cookie (1.0.3)
+      domain_name (~> 0.5)
     json_pure (1.8.1)
-    kitchen-ec2 (1.3.2)
-      aws-sdk (~> 2)
-      excon
-      multi_json
-      retryable (~> 2.0)
-      test-kitchen (~> 1.4, >= 1.4.1)
-    kitchen-verifier-shell (0.2.0)
-      test-kitchen (~> 1.4)
-    mime-types (1.25.1)
-    mixlib-install (2.1.12)
-      artifactory
-      mixlib-shellout
-      mixlib-versioning
-      thor
-    mixlib-shellout (2.2.7)
-    mixlib-versioning (1.1.0)
-    multi_json (1.12.1)
-    net-scp (1.2.1)
-      net-ssh (>= 2.6.5)
-    net-ssh (4.1.0)
-    net-ssh-gateway (1.3.0)
-      net-ssh (>= 2.6.5)
-    package_cloud (0.2.44)
+    mime-types (3.1)
+      mime-types-data (~> 3.2015)
+    mime-types-data (3.2016.0521)
+    netrc (0.11.0)
+    package_cloud (0.3.03)
       highline (= 1.6.20)
       json_pure (= 1.8.1)
-      rainbow (= 2.1.0)
-      rest-client (~> 1.6.7)
+      rainbow (= 2.2.2)
+      rest-client (~> 2.0)
       thor (~> 0.18)
-    rainbow (2.1.0)
-    rest-client (1.6.9)
-      mime-types (~> 1.16)
-    retryable (2.0.4)
-    safe_yaml (1.0.4)
-    test-kitchen (1.16.0)
-      mixlib-install (>= 1.2, < 3.0)
-      mixlib-shellout (>= 1.2, < 3.0)
-      net-scp (~> 1.1)
-      net-ssh (>= 2.9, < 5.0)
-      net-ssh-gateway (~> 1.2)
-      safe_yaml (~> 1.0)
-      thor (~> 0.19, < 0.19.2)
-    thor (0.19.1)
+    rainbow (2.2.2)
+      rake
+    rake (12.3.0)
+    rest-client (2.0.2)
+      http-cookie (>= 1.0.2, < 2.0)
+      mime-types (>= 1.16, < 4.0)
+      netrc (~> 0.8)
+    thor (0.20.0)
+    unf (0.1.4)
+      unf_ext
+    unf_ext (0.0.7.4)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
-  kitchen-ec2
-  kitchen-verifier-shell
   package_cloud
-  test-kitchen
 
 BUNDLED WITH
-   1.15.4
+   1.16.0

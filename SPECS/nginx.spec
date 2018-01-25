@@ -17,6 +17,7 @@ BuildRequires: openssl-devel >= 1.0.1
 ## dynamic-modules
 %define ngx_cache_purge_rev 2.3.dynamic
 %define ngx_pagespeed_rev 1.12.34.3
+%define psol_rev 1.12.34.2
 %define ngx_mruby_rev v1.20.1
 %define ngx_mruby_src https://github.com/matsumoto-r/ngx_mruby.git
 # end of distribution specific definitions
@@ -24,7 +25,7 @@ BuildRequires: openssl-devel >= 1.0.1
 Summary: A high performance web server and reverse proxy server(for Amimoto Wordpress preview 1.13.x)
 Name: nginx
 Epoch: 1
-Version: 1.13.7
+Version: 1.13.8
 Release: 1%{?dist}.amimoto
 Packager: OpsRock LLC
 Vendor: nginx inc. via OpsRock LLC
@@ -38,8 +39,8 @@ Source4: nginx.conf
 Source5: virtual.conf
 Source6: ngx_cache_purge_%{ngx_cache_purge_rev}.tar.gz
 Source7: ngx_mruby_build_config.rb
-Source8: ngx_pagespeed_%{ngx_pagespeed_rev}.tar.gz
-Source9: psol_%{ngx_pagespeed_rev}.tar.gz
+Source8: incubator-pagespeed-ngx_%{ngx_pagespeed_rev}.tar.gz
+Source9: psol_%{psol_rev}.tar.gz
 
 License: 2-clause BSD-like license
 
@@ -111,7 +112,7 @@ Avalable modules are...
 %prep
 %setup -q -a 6 -a 8
 # extract psol
-cd ngx_pagespeed-%{ngx_pagespeed_rev}-stable
+cd incubator-pagespeed-ngx-%{ngx_pagespeed_rev}-stable
 %{__tar} -xzf %{SOURCE9}
 ## should use Release force
 sed -e "s@buildtype=Debug@buildtype=Release@g" config -i
@@ -127,7 +128,7 @@ make generate_gems_config_dynamic
 # End Building mruby
 
 %build
-export PSOL_BINARY=${RPM_BUILD_DIR}/%{name}-%{version}/ngx_pagespeed-%{ngx_pagespeed_rev}-stable/psol/lib/Release/linux/x64/pagespeed_automatic.a
+export PSOL_BINARY=${RPM_BUILD_DIR}/%{name}-%{version}/incubator-pagespeed-ngx-%{ngx_pagespeed_rev}-stable/psol/lib/Release/linux/x64/pagespeed_automatic.a
 ./configure \
   --prefix=/usr/share/nginx \
   --sbin-path=/usr/sbin/nginx \
@@ -173,7 +174,7 @@ export PSOL_BINARY=${RPM_BUILD_DIR}/%{name}-%{version}/ngx_pagespeed-%{ngx_pages
   --with-stream_ssl_module \
   --without-stream_access_module \
   --add-dynamic-module=$RPM_BUILD_DIR/%{name}-%{version}/ngx_cache_purge-%{ngx_cache_purge_rev} \
-  --add-dynamic-module=$RPM_BUILD_DIR/%{name}-%{version}/ngx_pagespeed-%{ngx_pagespeed_rev}-stable \
+  --add-dynamic-module=$RPM_BUILD_DIR/%{name}-%{version}/incubator-pagespeed-ngx-%{ngx_pagespeed_rev}-stable \
   --add-module=$RPM_BUILD_DIR/%{name}-%{version}/ngx_mruby/dependence/ngx_devel_kit \
   --add-dynamic-module=$RPM_BUILD_DIR/%{name}-%{version}/ngx_mruby \
   --with-threads
@@ -360,6 +361,8 @@ if [ $1 -ge 1 ]; then
 fi
 
 %changelog
+* Thu Jan 25 2018 Yukihiko Sawanobori <sawanoboriyu@higanworks.com>
+- 1.13.8
 * Thu Nov 30 2017 Yukihiko Sawanobori <sawanoboriyu@higanworks.com>
 - 1.13.7
 * Thu Oct 12 2017 Yukihiko Sawanobori <sawanoboriyu@higanworks.com>
