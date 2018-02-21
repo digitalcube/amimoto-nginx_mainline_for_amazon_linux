@@ -7,7 +7,7 @@ source ./NPS_VERSION
 yum -y update && yum -y install rpm-build git gcc make autoconf tmux \
   pcre-devel openssl-devel libxml2-devel libxslt-devel \
   gd-devel perl-devel perl-ExtUtils-Embed geoip-devel gperftools-devel \
-  rubygem-rake bison wget gcc-c++
+  rubygem-rake bison wget gcc-c++ libuuid-devel
 
 if [ "$CIRCLE_JOB" == "build" ] ; then
   wget http://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz -O SOURCES/nginx-${NGINX_VERSION}.tar.gz
