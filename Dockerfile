@@ -1,4 +1,4 @@
-FROM amazonlinux:2017.09-with-sources
+FROM amazonlinux:2018.03-with-sources
 
 RUN yum -y update && yum -y install rpm-build git gcc make autoconf tmux \
   pcre-devel openssl-devel libxml2-devel libxslt-devel \
