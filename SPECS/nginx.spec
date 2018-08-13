@@ -18,7 +18,7 @@ BuildRequires: openssl-devel >= 1.0.1
 %define ngx_cache_purge_rev 2.3.dynamic
 %define ngx_pagespeed_rev 1.13.35.2
 %define psol_rev 1.13.35.2
-%define ngx_mruby_rev v2.0.4
+%define ngx_mruby_rev v2.1.1
 %define ngx_mruby_src https://github.com/matsumoto-r/ngx_mruby.git
 # end of distribution specific definitions
 
@@ -361,6 +361,8 @@ if [ $1 -ge 1 ]; then
 fi
 
 %changelog
+* Mon Aug 13 2018 Yukihiko Sawanobori <sawanoboriyu@higanworks.com>
+- ngx_mruby 2.1.1
 * Wed Jul 25 2018 Yukihiko Sawanobori <sawanoboriyu@higanworks.com>
 - 1.15.2
 * Thu Jul 05 2018 Yukihiko Sawanobori <sawanoboriyu@higanworks.com>
