@@ -1,4 +1,6 @@
+# Nginx mainline for Amazon Linux
 
+[![CircleCI](https://circleci.com/gh/OpsRockin/nginx_preview_for_amimoto.svg?style=svg)](https://circleci.com/gh/OpsRockin/nginx_preview_for_amimoto)
 
 ## Setup
 
