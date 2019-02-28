@@ -361,7 +361,7 @@ if [ $1 -ge 1 ]; then
 fi
 
 %changelog
-* Thu Feb 28 2018 Yukihiko Sawanobori <sawanoboriyu@higanworks.com>
+* Thu Feb 28 2019 Yukihiko Sawanobori <sawanoboriyu@higanworks.com>
 - 1.15.9
 * Wed Dec 26 2018 Yukihiko Sawanobori <sawanoboriyu@higanworks.com>
 - 1.15.8
