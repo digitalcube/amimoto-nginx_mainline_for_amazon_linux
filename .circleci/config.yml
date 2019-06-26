@@ -3,7 +3,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: amazonlinux:2017.03-with-sources
+      - image: amazonlinux:2018.09-with-sources
     working_directory: /root/rpmbuild
     steps:
       - checkout
