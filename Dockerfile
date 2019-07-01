@@ -1,4 +1,5 @@
-FROM amazonlinux:2018.03-with-sources
+ARG BASE_TAG=2-with-sources
+FROM amazonlinux:$BASE_TAG
 
 RUN yum -y update && yum -y install rpm-build git gcc make autoconf tmux \
   pcre-devel openssl-devel libxml2-devel libxslt-devel \
