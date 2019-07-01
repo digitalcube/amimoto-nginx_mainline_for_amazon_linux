@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -e
 
 # load NGINX_VERSION
 source ./nginx_version
