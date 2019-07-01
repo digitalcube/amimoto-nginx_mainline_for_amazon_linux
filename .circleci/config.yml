@@ -69,10 +69,13 @@ workflows:
   build_and_test:
     jobs:
       - build1
-      - build2
+      - build2:
+          requires:
+            - build1
       - test1:
           requires:
             - build1
       - test2:
           requires:
             - build2
+            - test1
