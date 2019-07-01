@@ -1,7 +1,7 @@
 ---
 version: 2
 jobs:
-  build:
+  build1:
     docker:
       - image: amazonlinux:2018.03-with-sources
     working_directory: /root/rpmbuild
