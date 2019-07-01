@@ -14,6 +14,8 @@ jobs:
           paths:
             - ci
             - RPMS
+            - nginx_version
+            - NPS_VERSION
       - store_artifacts:
           path: /root/rpmbuild/RPMS
   build2:
@@ -29,6 +31,8 @@ jobs:
           paths:
             - ci
             - RPMS
+            - nginx_version
+            - NPS_VERSION
       - store_artifacts:
           path: /root/rpmbuild/RPMS
   test1:
