@@ -51,7 +51,7 @@ jobs:
       - run: curl -vf 127.0.0.1/hello
   test2:
     docker:
-      - image: amazonlinux:2-with-sources
+      - image: opsrock/amzn_linux_with:2-with-sources
     working_directory: /tmp/workspace
     steps:
       - attach_workspace:
@@ -69,13 +69,10 @@ workflows:
   build_and_test:
     jobs:
       - build1
-      - build2:
-          requires:
-            - build1
+      - build2
       - test1:
           requires:
             - build1
       - test2:
           requires:
             - build2
-            - test1
