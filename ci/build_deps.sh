@@ -23,3 +23,7 @@ if [ "$CIRCLE_JOB" == "build2" ] ; then
   wget https://codeload.github.com/pagespeed/ngx_pagespeed/tar.gz/v${NPS_VERSION}-stable -O SOURCES/incubator-pagespeed-ngx_${NPS_VERSION}.tar.gz
   wget https://dl.google.com/dl/page-speed/psol/${PSOL_VERSION}-x64.tar.gz -O SOURCES/psol_${PSOL_VERSION}.tar.gz
 fi
+
+if [ "$CIRCLE_JOB" == "test2" ] ; then
+  yum -y install openssl initscripts
+fi
