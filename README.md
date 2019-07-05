@@ -21,7 +21,7 @@ $ git clone https://github.com/OpsRockin/nginx_preview_for_amimoto.git ~/rpmbuil
 
 ## Build
 
-on EC2
+on EC2 (DEPRECATED)
 
 ```
 $ source ./nginx_version
@@ -34,7 +34,7 @@ $ wget https://github.com/OpsRockin/ngx_cache_purge/archive/2.3.dynamic.tar.gz -
 $ rpmbuild -ba SPECS/nginx.spec
 ```
 
-or Docker
+or Docker (Current maintenance target)
 
 ```
 source ./nginx_version
@@ -44,8 +44,12 @@ wget https://github.com/OpsRockin/ngx_cache_purge/archive/2.3.dynamic.tar.gz -O 
 wget https://codeload.github.com/apache/incubator-pagespeed-ngx/tar.gz/v${NPS_VERSION}-stable -O SOURCES/incubator-pagespeed-ngx_${NPS_VERSION}.tar.gz
 wget https://dl.google.com/dl/page-speed/psol/${PSOL_VERSION}-x64.tar.gz -O SOURCES/psol_${PSOL_VERSION}.tar.gz
 docker pull amazonlinux:2018.03-with-sources # to update base
-docker build -t local/nginx_preview_for_amimoto .
-docker run -it --rm -v `pwd`:/root/rpmbuild:cached local/nginx_preview_for_amimoto
+docker pull amazonlinux:2-with-sources # to update base
+docker build -t local/nginx_preview_for_amimoto:1 --build-arg BASE_TAG=2018.03-with-sources .
+docker build -t local/nginx_preview_for_amimoto:2 .
+
+docker run -it --rm -v `pwd`:/root/rpmbuild:cached local/nginx_preview_for_amimoto:1
+docker run -it --rm -v `pwd`:/root/rpmbuild:cached local/nginx_preview_for_amimoto:2
 ```
 
 
