@@ -22,7 +22,7 @@ BuildRequires: openssl-devel >= 1.0.1
 %define ngx_mruby_src https://github.com/matsumoto-r/ngx_mruby.git
 # end of distribution specific definitions
 
-Summary: A high performance web server and reverse proxy server(for Amimoto Wordpress preview 1.15.x)
+Summary: A high performance web server and reverse proxy server(for Amimoto Wordpress)
 Name: nginx
 Epoch: 1
 Version: 1.17.2
