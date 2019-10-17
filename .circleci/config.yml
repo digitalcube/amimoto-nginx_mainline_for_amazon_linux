@@ -16,7 +16,7 @@ executors:
 jobs:
   build:
     parameters:
-      tag:
+      e:
         type: executor
     executor: << parameters.e >>
     working_directory: /root/rpmbuild
@@ -35,7 +35,7 @@ jobs:
           path: /root/rpmbuild/RPMS
   test:
     parameters:
-      tag:
+      e:
         type: executor
     executor: << parameters.e >>
     working_directory: /tmp/workspace
@@ -55,14 +55,16 @@ workflows:
   build_and_test:
     jobs:
       - build:
+          name: build1
           e: amazonlinux1
       - build:
+          name: build2
           e: amazonlinux2
       - test:
           e: amazonlinux1
           requires:
-            - build
+            - build1
       - test:
           e: amazonlinux2
           requires:
-            - build
+            - build2
