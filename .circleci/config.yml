@@ -11,7 +11,7 @@ executors:
     environment:
       AMZN_VERSIONN: "2"
     docker:
-      - image: amazonlinux:2-with-sources
+      - image: opsrock/amzn_linux_with:2-with-sources
 
 jobs:
   build:
