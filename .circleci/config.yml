@@ -61,10 +61,12 @@ workflows:
           name: build2
           e: amazonlinux2
       - test:
+          name: test1
           e: amazonlinux1
           requires:
             - build1
       - test:
+          name: test2
           e: amazonlinux2
           requires:
             - build2
