@@ -37,13 +37,16 @@ jobs:
     parameters:
       e:
         type: executor
+      pkg:
+        type: enum
+        enum: ["amzn1", "amzn2"]
     executor: << parameters.e >>
     working_directory: /tmp/workspace
     steps:
       - attach_workspace:
           at: /tmp/workspace
       - run: ./ci/build_deps.sh
-      - run: rpm -ivh RPMS/x86_64/nginx-*.amzn1.amimoto.x86_64.rpm
+      - run: rpm -ivh RPMS/x86_64/nginx-*.<< parameters.pkg >>.amimoto.x86_64.rpm
       - run: cp -f ./ci/nginx.conf /etc/nginx/nginx.conf
       - run: nginx -V
       - run: nginx -t
@@ -63,10 +66,12 @@ workflows:
       - test:
           name: test1
           e: amazonlinux1
+          pkg: amzn1
           requires:
             - build1
       - test:
           name: test2
           e: amazonlinux2
+          pkg: amzn2
           requires:
             - build2
