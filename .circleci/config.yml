@@ -1,64 +1,48 @@
 ---
-version: 2
-jobs:
-  build1:
+version: 2.1
+
+executors:
+  amazonlinux1:
     docker:
       - image: amazonlinux:2018.03-with-sources
-    working_directory: /root/rpmbuild
-    steps:
-      - checkout
-      - run: ./ci/build_deps.sh
-      - run: rpmbuild -ba SPECS/nginx.spec
-      - persist_to_workspace:
-          root: .
-          paths:
-            - ci
-            - RPMS
-            - nginx_version
-            - NPS_VERSION
-      - store_artifacts:
-          path: /root/rpmbuild/RPMS
-  build2:
-    docker:
-      - image: amazonlinux:2-with-sources
-    working_directory: /root/rpmbuild
-    steps:
-      - checkout
-      - run: ./ci/build_deps.sh
-      - run: rpmbuild -ba SPECS/nginx.spec
-      - persist_to_workspace:
-          root: .
-          paths:
-            - ci
-            - RPMS
-            - nginx_version
-            - NPS_VERSION
-      - store_artifacts:
-          path: /root/rpmbuild/RPMS
-  test1:
-    docker:
-      - image: amazonlinux:2018.03-with-sources
-    working_directory: /tmp/workspace
-    steps:
-      - attach_workspace:
-          at: /tmp/workspace
-      - run: ./ci/build_deps.sh
-      - run: rpm -ivh RPMS/x86_64/nginx-*.amzn1.amimoto.x86_64.rpm
-      - run: cp -f ./ci/nginx.conf /etc/nginx/nginx.conf
-      - run: nginx -V
-      - run: nginx -t
-      - run: echo "NETWORKING=yes" >/etc/sysconfig/network
-      - run: service nginx start
-      - run: curl -vf 127.0.0.1/hello
-  test2:
+  amazonlinux2:
     docker:
       - image: opsrock/amzn_linux_with:2-with-sources
+
+jobs:
+  build:
+    parameters:
+      e:
+        type: executor
+    executor: << parameters.e >>
+    working_directory: /root/rpmbuild
+    steps:
+      - checkout
+      - run: ./ci/build_deps.sh
+      - run: rpmbuild -ba SPECS/nginx.spec
+      - persist_to_workspace:
+          root: .
+          paths:
+            - ci
+            - RPMS
+            - nginx_version
+            - NPS_VERSION
+      - store_artifacts:
+          path: /root/rpmbuild/RPMS
+  test:
+    parameters:
+      e:
+        type: executor
+      pkg:
+        type: enum
+        enum: ["amzn1", "amzn2"]
+    executor: << parameters.e >>
     working_directory: /tmp/workspace
     steps:
       - attach_workspace:
           at: /tmp/workspace
       - run: ./ci/build_deps.sh
-      - run: rpm -ivh RPMS/x86_64/nginx-*.amzn2.amimoto.x86_64.rpm
+      - run: rpm -ivh RPMS/x86_64/nginx-*.<< parameters.pkg >>.amimoto.x86_64.rpm
       - run: cp -f ./ci/nginx.conf /etc/nginx/nginx.conf
       - run: nginx -V
       - run: nginx -t
@@ -67,14 +51,23 @@ jobs:
       - run: curl -vf 127.0.0.1/hello
 
 workflows:
-  version: 2
   build_and_test:
     jobs:
-      - build1
-      - build2
-      - test1:
+      - build:
+          name: build1
+          e: amazonlinux1
+      - build:
+          name: build2
+          e: amazonlinux2
+      - test:
+          name: test1
+          e: amazonlinux1
+          pkg: amzn1
           requires:
             - build1
-      - test2:
+      - test:
+          name: test2
+          e: amazonlinux2
+          pkg: amzn2
           requires:
             - build2
