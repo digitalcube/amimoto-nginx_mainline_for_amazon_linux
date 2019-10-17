@@ -4,12 +4,12 @@ version: 2.1
 executors:
   amazonlinux1:
     environment:
-      AMZN_VERSIONN: "1"
+      AMZN_VERSION: "1"
     docker:
       - image: amazonlinux:2018.03-with-sources
   amazonlinux2:
     environment:
-      AMZN_VERSIONN: "2"
+      AMZN_VERSION: "2"
     docker:
       - image: opsrock/amzn_linux_with:2-with-sources
 
