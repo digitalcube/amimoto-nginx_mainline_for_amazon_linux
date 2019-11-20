@@ -1,6 +1,12 @@
-# Nginx mainline for Amazon Linux
+# Nginx mainline for Amazon Linux with ngx_mruby
 
-[![CircleCI](https://circleci.com/gh/OpsRockin/nginx_preview_for_amimoto.svg?style=svg)](https://circleci.com/gh/OpsRockin/nginx_preview_for_amimoto)
+[![CircleCI](https://circleci.com/gh/OpsRockin/nginx_mainline_for_amazon_linux.svg?style=svg)](https://circleci.com/gh/OpsRockin/nginx_mainline_for_amazon_linux)
+
+includes
+
+- ngx_mruby
+- ngx_cache_purge
+- ngx_pagespeed
 
 ## Setup
 
