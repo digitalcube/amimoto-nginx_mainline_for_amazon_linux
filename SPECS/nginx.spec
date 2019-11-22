@@ -1,6 +1,7 @@
-#
+# %amzn = 1 or 2 to check hostos version
 %dump
 %define nginx_home %{_localstatedir}/cache/nginx
+%define systemd_dir /usr/lib/systemd/system/
 %define nginx_user nginx
 %define nginx_group nginx
 %define mruby_dir /opt/mruby
@@ -26,14 +27,14 @@ Summary: A high performance web server and reverse proxy server(for Amimoto Word
 Name: nginx
 Epoch: 1
 Version: 1.17.6
-Release: 1%{?dist}.amimoto
+Release: 2%{?dist}.amimoto
 Packager: OpsRock LLC
 Vendor: nginx inc. via OpsRock LLC
 URL: http://nginx.org/
 
 Source0: http://nginx.org/download/%{name}-%{version}.tar.gz
 Source1: logrotate
-Source2: nginx.init
+Source2: nginx.init%{?amzn}
 Source3: nginx.sysconf
 Source4: nginx.conf
 Source5: virtual.conf
@@ -217,10 +218,19 @@ make %{?_smp_mflags}
 %{__install} -p $RPM_BUILD_ROOT/usr/local/lib64/perl5/nginx.pm \
    $RPM_BUILD_ROOT/usr/lib64/perl5/vendor_perl/nginx.pm
 
+%if %{amzn} == 1
 # install SYSV init stuff
 %{__mkdir} -p $RPM_BUILD_ROOT%{_initrddir}
 %{__install} -m755 %{SOURCE2} \
    $RPM_BUILD_ROOT%{_initrddir}/nginx
+%endif
+
+%if %{amzn} == 2
+# install systemd service
+%{__mkdir} -p $RPM_BUILD_ROOT%{_initrddir}
+%{__install} -m755 %{SOURCE2} \
+   $RPM_BUILD_ROOT%{systemd_dir}/nginx.service
+%endif
 
 # install log rotation stuff
 %{__mkdir} -p $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d
@@ -274,7 +284,14 @@ make %{?_smp_mflags}
 
 %config(noreplace) %{_sysconfdir}/logrotate.d/nginx
 %config(noreplace) %{_sysconfdir}/sysconfig/nginx
+
+%if %{amzn} == 1
 %{_initrddir}/nginx
+%endif
+
+%if %{amzn} == 2
+%{systemd_dir}/nginx.service
+%endif
 
 /usr/lib64/perl5/vendor_perl/auto/nginx/nginx.so
 /usr/lib64/perl5/vendor_perl/nginx.pm
@@ -361,6 +378,8 @@ if [ $1 -ge 1 ]; then
 fi
 
 %changelog
+* Fri Nov 22 2019 Yukihiko Sawanobori <sawanoboriyu@higanworks.com>
+- 1.17.6.2: change SYSV to Systemd
 * Wed Nov 20 2019 Yukihiko Sawanobori <sawanoboriyu@higanworks.com>
 - 1.17.6
 - ngx_mruby 2.1.8

@@ -92,7 +92,7 @@ upgrade() {
     if [[ -f ${oldbin_pidfile} && -f ${pidfile} ]];  then
         killproc -p $oldbin_pidfile $prog -QUIT
         success $"$prog online upgrade"
-        echo 
+        echo
         return 0
     else
         failure $"$prog online upgrade"
@@ -123,7 +123,7 @@ case "$1" in
     restart|configtest|reopen_logs)
         $1
         ;;
-    force-reload|upgrade) 
+    force-reload|upgrade)
         rh_status_q || exit 7
         upgrade
         ;;
