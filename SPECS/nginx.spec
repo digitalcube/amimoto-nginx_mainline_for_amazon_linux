@@ -227,7 +227,7 @@ make %{?_smp_mflags}
 
 %if %{amzn} == 2
 # install systemd service
-%{__mkdir} -p $RPM_BUILD_ROOT%{_initrddir}
+%{__mkdir} -p $RPM_BUILD_ROOT%{systemd_dir}
 %{__install} -m755 %{SOURCE2} \
    $RPM_BUILD_ROOT%{systemd_dir}/nginx.service
 %endif
