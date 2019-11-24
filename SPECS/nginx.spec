@@ -42,6 +42,9 @@ Source6: ngx_cache_purge_%{ngx_cache_purge_rev}.tar.gz
 Source7: ngx_mruby_build_config.rb
 Source8: incubator-pagespeed-ngx_%{ngx_pagespeed_rev}.tar.gz
 Source9: psol_%{psol_rev}.tar.gz
+%if %{amzn} == 2
+Source10: nginx-upgrade
+%endif
 
 License: 2-clause BSD-like license
 
@@ -229,7 +232,10 @@ make %{?_smp_mflags}
 # install systemd service
 %{__mkdir} -p $RPM_BUILD_ROOT%{systemd_dir}
 %{__install} -m755 %{SOURCE2} \
-   $RPM_BUILD_ROOT%{systemd_dir}/nginx.service
+   $RPM_BUILD_ROOT%{systemd_dir}
+%{__mkdir} -p $RPM_BUILD_ROOT/usr/bin/
+%{__install} -m755 %{SOURCE10} \
+   $RPM_BUILD_ROOT/usr/bin/nginx-upgrade
 %endif
 
 # install log rotation stuff
@@ -329,14 +335,25 @@ exit 0
 
 %post
 if [ $1 -eq 1 ]; then
+%if %{amzn} == 1
     /sbin/chkconfig --add nginx
+%endif
+%if %{amzn} == 2
+   systemctl preset nginx.service >/dev/null 2>&1 || :
+%endif
 fi
+
 if [ $1 -eq 2 ]; then
     # Make sure these directories are not world readable.
     chmod 700 /var/lib/nginx
     chmod 700 /var/lib/nginx/tmp
     chmod 700 /var/log/nginx
+%if %{amzn} == 2
+   find /etc/rc.d/ -name '*nginx' -delete
+   systemctl preset nginx.service >/dev/null 2>&1 || :
+%endif
 fi
+
 # Create default KeyPair
 umask 077
 if [ -f /etc/pki/tls/private/amimoto.default.key -o -f /etc/pki/tls/certs/amimoto.default.crt ]; then
@@ -368,13 +385,24 @@ fi
 
 %preun
 if [ $1 -eq 0 ]; then
+%if %{amzn} == 1
     /sbin/service nginx stop >/dev/null 2>&1
     /sbin/chkconfig --del nginx
+%endif
+%if %{amzn} == 2
+   systemctl --no-reload disable nginx.service > /dev/null 2>&1 || :
+   systemctl stop nginx.service > /dev/null 2>&1 || :
+%endif
 fi
 
 %postun
 if [ $1 -ge 1 ]; then
+%if %{amzn} == 1
     /sbin/service nginx upgrade || :
+%endif
+%if %{amzn} == 2
+   /usr/bin/nginx-upgrade >/dev/null 2>&1 || :
+%endif
 fi
 
 %changelog
