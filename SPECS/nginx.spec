@@ -232,7 +232,7 @@ make %{?_smp_mflags}
 # install systemd service
 %{__mkdir} -p $RPM_BUILD_ROOT%{systemd_dir}
 %{__install} -m755 %{SOURCE2} \
-   $RPM_BUILD_ROOT%{systemd_dir}
+   $RPM_BUILD_ROOT%{systemd_dir}/nginx.service
 %{__mkdir} -p $RPM_BUILD_ROOT/usr/bin/
 %{__install} -m755 %{SOURCE10} \
    $RPM_BUILD_ROOT/usr/bin/nginx-upgrade
@@ -297,6 +297,7 @@ make %{?_smp_mflags}
 
 %if %{amzn} == 2
 %{systemd_dir}/nginx.service
+/usr/bin/nginx-upgrade
 %endif
 
 /usr/lib64/perl5/vendor_perl/auto/nginx/nginx.so
