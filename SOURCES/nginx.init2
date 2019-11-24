@@ -4,6 +4,7 @@ After=network.target remote-fs.target nss-lookup.target
 
 [Service]
 Type=forking
+EnvironmentFile=/etc/sysconfig/nginx
 PIDFile=/run/nginx.pid
 # Nginx will fail to start if /run/nginx.pid already exists but has the wrong
 # SELinux context. This might happen when running `nginx -t` from the cmdline.
