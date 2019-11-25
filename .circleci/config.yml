@@ -8,6 +8,10 @@ executors:
   amazonlinux2:
     docker:
       - image: opsrock/amzn_linux_with:2-with-sources
+  machine_test:
+    machine:
+      image: ubuntu-1604:201903-01
+      # https://circleci.com/docs/2.0/configuration-reference/#machine
 
 jobs:
   build:
@@ -49,6 +53,32 @@ jobs:
       - run: echo "NETWORKING=yes" >/etc/sysconfig/network
       - run: service nginx start
       - run: curl -vf 127.0.0.1/hello
+  machine_test: # https://lkhill.com/circleci-docker-systemd/
+    parameters:
+      e:
+        type: executor
+      pkg:
+        type: enum
+        enum: [amzn2"]
+    executor: << parameters.e >>
+    working_directory: /tmp/workspace
+    steps:
+      - attach_workspace:
+          at: /tmp/workspace
+      - run:
+          name: Set up host system
+          command: |
+            sudo service apparmor teardown
+            sudo -H pip install docker-compose
+      - run: docker run --name -d << parameters.e >> -it --privileged -p 8080:80 -v `pwd`:/mnt/host opsrock/amzn_linux_with:2-with-sources /sbin/init
+      - run: sleep 10
+      - run: docker run << parameters.e >> ./ci/build_deps.sh
+      - run: docker run << parameters.e >> rpm -ivh ./RPMS/x86_64/nginx-*.<< parameters.pkg >>.amimoto.x86_64.rpm
+      - run: docker run << parameters.e >> cp -f ./ci/nginx.conf /etc/nginx/nginx.conf
+      - run: docker run << parameters.e >> nginx -V
+      - run: docker run << parameters.e >> nginx -t
+      - run: docker run << parameters.e >> systemctl start nginx
+      - run: curl -vf 127.0.0.1:8080/hello
 
 workflows:
   build_and_test:
@@ -65,9 +95,9 @@ workflows:
           pkg: amzn1
           requires:
             - build1
-      - test:
+      - machine_test:
           name: test2
-          e: amazonlinux2
+          e: machine_test
           pkg: amzn2
           requires:
             - build2
