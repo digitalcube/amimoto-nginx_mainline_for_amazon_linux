@@ -24,6 +24,7 @@ jobs:
       - checkout
       - run: ./ci/build_deps.sh
       - run: rpmbuild -ba SPECS/nginx.spec
+      - run: tar cvzf RPMS/rpmset.tgz RPMS/x86_64/nginx-*
       - persist_to_workspace:
           root: .
           paths:
