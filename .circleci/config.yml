@@ -53,13 +53,13 @@ jobs:
       - run: echo "NETWORKING=yes" >/etc/sysconfig/network
       - run: service nginx start
       - run: curl -vf 127.0.0.1/hello
-  machine_test: # https://lkhill.com/circleci-docker-systemd/
+  m_test: # https://lkhill.com/circleci-docker-systemd/
     parameters:
       e:
         type: executor
       pkg:
         type: enum
-        enum: [amzn2"]
+        enum: ["amzn2"]
     executor: << parameters.e >>
     working_directory: /tmp/workspace
     steps:
