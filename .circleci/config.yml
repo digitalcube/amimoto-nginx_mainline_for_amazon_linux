@@ -70,7 +70,7 @@ jobs:
           command: |
             sudo service apparmor teardown
             sudo -H pip install docker-compose
-      - run: docker run --name -d << parameters.e >> -it --privileged -p 8080:80 -v `pwd`:/mnt/host opsrock/amzn_linux_with:2-with-sources /sbin/init
+      - run: docker run --name -d << parameters.pkg >> -it --privileged -p 8080:80 -v `pwd`:/mnt/host opsrock/amzn_linux_with:2-with-sources /sbin/init
       - run: sleep 10
       - run: docker run << parameters.e >> ./ci/build_deps.sh
       - run: docker run << parameters.e >> rpm -ivh ./RPMS/x86_64/nginx-*.<< parameters.pkg >>.amimoto.x86_64.rpm
