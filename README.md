@@ -1,4 +1,4 @@
-# Nginx mainline for Amazon Linux with ngx_mruby
+# Nginx mainline for Amazon Linux 1 and 2 with ngx_mruby
 
 [![CircleCI](https://circleci.com/gh/OpsRockin/nginx_mainline_for_amazon_linux.svg?style=svg)](https://circleci.com/gh/OpsRockin/nginx_mainline_for_amazon_linux)
 
