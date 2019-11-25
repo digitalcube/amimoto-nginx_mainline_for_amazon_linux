@@ -95,7 +95,7 @@ workflows:
           pkg: amzn1
           requires:
             - build1
-      - machine_test:
+      - m_test:
           name: test2
           e: machine_test
           pkg: amzn2
