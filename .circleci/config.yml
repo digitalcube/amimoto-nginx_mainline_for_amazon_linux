@@ -23,8 +23,7 @@ jobs:
     steps:
       - checkout
       - run: ./ci/build_deps.sh
-      - run: echo '%global	__debug_package 0' > ~/.rpmmacros
-      - run: rpmbuild -ba SPECS/nginx.spec
+      - run: rpmbuild -ba SPECS/nginx.spec --define='%debug_package 0'
       - run: tar cvzf RPMS/rpmset.tgz RPMS/x86_64/nginx-*
       - persist_to_workspace:
           root: .
