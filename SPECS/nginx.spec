@@ -110,9 +110,6 @@ Avalable modules are...
   - matsumoto-r/mruby-httprequest
 
 %debug_package %{nil}
-%if 0%{?suse_version} == 1315
-%debug_package
-%endif
 
 %prep
 %setup -q -a 6 -a 8
