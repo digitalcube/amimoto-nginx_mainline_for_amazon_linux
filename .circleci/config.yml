@@ -69,7 +69,6 @@ jobs:
           name: Set up host system
           command: |
             sudo service apparmor teardown
-            sudo -H pip install docker-compose
       - run: docker run --name << parameters.pkg >> -d -it --privileged -p 8080:80 -v `pwd`:/mnt/host opsrock/amzn_linux_with:2-with-sources /sbin/init
       - run: sleep 10
       - run: docker run << parameters.e >> ./ci/build_deps.sh
