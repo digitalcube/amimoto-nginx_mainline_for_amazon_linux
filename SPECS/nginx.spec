@@ -1,6 +1,5 @@
 # %amzn = 1 or 2 to check hostos version
 %dump
-%global __debug_package 0
 %define nginx_home %{_localstatedir}/cache/nginx
 %define systemd_dir /usr/lib/systemd/system/
 %define nginx_user nginx
