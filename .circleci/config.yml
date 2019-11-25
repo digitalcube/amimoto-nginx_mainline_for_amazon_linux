@@ -71,9 +71,9 @@ jobs:
             sudo service apparmor teardown
       - run: docker run --name << parameters.pkg >> -d -it --privileged -p 8080:80 -v `pwd`:/mnt/host opsrock/amzn_linux_with:2-with-sources /sbin/init
       - run: sleep 10
-      - run: docker exec << parameters.pkg >> ./ci/build_deps.sh
-      - run: docker exec << parameters.pkg >> rpm -ivh ./RPMS/x86_64/nginx-*.<< parameters.pkg >>.amimoto.x86_64.rpm
-      - run: docker exec << parameters.pkg >> cp -f ./ci/nginx.conf /etc/nginx/nginx.conf
+      - run: docker exec << parameters.pkg >> /mnt/host/ci/build_deps.sh
+      - run: docker exec << parameters.pkg >> rpm -ivh /mnt/host/RPMS/x86_64/nginx-*.<< parameters.pkg >>.amimoto.x86_64.rpm
+      - run: docker exec << parameters.pkg >> cp -f /mnt/host/ci/nginx.conf /etc/nginx/nginx.conf
       - run: docker exec << parameters.pkg >> nginx -V
       - run: docker exec << parameters.pkg >> nginx -t
       - run: docker exec << parameters.pkg >> systemctl start nginx
