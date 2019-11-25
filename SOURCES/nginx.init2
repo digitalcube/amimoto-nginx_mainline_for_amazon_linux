@@ -10,6 +10,7 @@ PIDFile=/run/nginx.pid
 # SELinux context. This might happen when running `nginx -t` from the cmdline.
 # https://bugzilla.redhat.com/show_bug.cgi?id=1268621
 ExecStartPre=/usr/bin/rm -f /run/nginx.pid
+ExecStartPre=/usr/bin/rm -f /run/nginx-*.sock
 ExecStartPre=/usr/sbin/nginx -t
 ExecStart=/usr/sbin/nginx
 ExecReload=/bin/kill -s HUP $MAINPID
