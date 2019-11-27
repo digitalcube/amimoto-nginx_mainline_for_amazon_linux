@@ -24,7 +24,6 @@ MRuby::Build.new do |conf|
   conf.gem :github => 'matsumoto-r/mruby-mutex'
   conf.gem :github => 'matsumoto-r/mruby-localmemcache'
   conf.gem :mgem => 'mruby-secure-random'
-  conf.gem :github => 'kaihar4/mruby-ipaddress_matcher'
 
   # ngx_mruby extended class
   conf.gem './mrbgems/ngx_mruby_mrblib'

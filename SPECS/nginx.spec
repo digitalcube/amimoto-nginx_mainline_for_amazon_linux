@@ -56,7 +56,6 @@ License: 2-clause BSD-like license
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 BuildRequires: zlib-devel
 BuildRequires: pcre-devel
-BuildRequires: openssl-devel
 BuildRequires: libxml2-devel
 BuildRequires: libxslt-devel
 BuildRequires: gd-devel
@@ -111,7 +110,6 @@ Avalable modules are...
   - matsumoto-r/mruby-mutex
   - matsumoto-r/mruby-localmemcache
   - mruby-secure-random
-  - kaihar4/mruby-ipaddress_matcher
 
 # %debug_package %{nil}
 
@@ -140,7 +138,7 @@ cd ngx_mruby
 %{__cp} -f %{SOURCE7} ./
 ./configure --with-ngx-src-root=../ --enable-dynamic-module
 make build_mruby -j 4
-make generate_gems_config_dynamic
+make mrbgems_config_dynamic
 # End Building mruby
 
 %build
