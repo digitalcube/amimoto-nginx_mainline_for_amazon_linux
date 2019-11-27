@@ -24,7 +24,7 @@ BuildRequires: openssl-devel >= 1.0.1
 # end of distribution specific definitions
 
 %if %{amzn} == 2
-%define openssl_version 1.1.1d
+%define openssl_version 1.1.1
 %endif
 
 Summary: A high performance web server and reverse proxy server(for Amimoto Wordpress)
