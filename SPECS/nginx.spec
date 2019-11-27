@@ -122,6 +122,11 @@ Avalable modules are...
 %endif
 %if %{amzn} == 2
 %setup -q -a 6 -a 8 -a 11
+# build openssl
+cd openssl-%{openssl_version}-latest
+./config --prefix=/usr/local --shared zlib -fPIC
+make install
+cd -
 %endif
 
 
