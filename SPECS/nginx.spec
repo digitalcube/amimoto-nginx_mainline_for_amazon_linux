@@ -123,7 +123,7 @@ Avalable modules are...
 %{__mkdir} openssl-%{openssl_version}
 %{__tar} -xzf %{SOURCE11} -C openssl-%{openssl_version} --strip-components 1
 cd openssl-%{openssl_version}
-./config --prefix=/usr/local zlib -fPIC
+./config --prefix=/usr/local zlib no-shared -fPIC
 make depend
 make build_all_generated install_sw
 cd -
@@ -196,7 +196,7 @@ export PSOL_BINARY=${RPM_BUILD_DIR}/%{name}-%{version}/incubator-pagespeed-ngx-%
   --add-module=$RPM_BUILD_DIR/%{name}-%{version}/ngx_mruby/dependence/ngx_devel_kit \
   --add-dynamic-module=$RPM_BUILD_DIR/%{name}-%{version}/ngx_mruby \
 %if %{amzn} == 2
-   --with-openssl=$RPM_BUILD_DIR/%{name}-%{version}/openssl-%{openssl_version} --with-ld-opt="-static" \
+   --with-openssl=$RPM_BUILD_DIR/%{name}-%{version}/openssl-%{openssl_version} \
 %endif
   --with-threads
 make %{?_smp_mflags}
