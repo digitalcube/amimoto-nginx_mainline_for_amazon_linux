@@ -25,7 +25,6 @@ BuildRequires: openssl-devel >= 1.0.1
 
 %if %{amzn} == 2
 %define openssl_version 1.1.1d
-%define with_openssl --with-openssl=../openssl-%{openssl_version}
 %endif
 
 Summary: A high performance web server and reverse proxy server(for Amimoto Wordpress)
@@ -192,7 +191,10 @@ export PSOL_BINARY=${RPM_BUILD_DIR}/%{name}-%{version}/incubator-pagespeed-ngx-%
   --add-dynamic-module=$RPM_BUILD_DIR/%{name}-%{version}/incubator-pagespeed-ngx-%{ngx_pagespeed_rev}-stable \
   --add-module=$RPM_BUILD_DIR/%{name}-%{version}/ngx_mruby/dependence/ngx_devel_kit \
   --add-dynamic-module=$RPM_BUILD_DIR/%{name}-%{version}/ngx_mruby \
-  --with-threads %{with_openssl}
+%if %{amzn} == 2
+   --with-openssl=$RPM_BUILD_DIR/%{name}-%{version}/openssl-%{openssl_version}
+%endif
+  --with-threads
 make %{?_smp_mflags}
 
 %install
