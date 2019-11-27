@@ -123,7 +123,7 @@ Avalable modules are...
 %{__mkdir} openssl-%{openssl_version}
 %{__tar} -xzf %{SOURCE11} -C openssl-%{openssl_version} --strip-components 1
 cd openssl-%{openssl_version}
-./config --prefix=/usr/local zlib no-shared -fPIC
+./config --prefix=/usr/local zlib -fPIC
 make depend
 make build_all_generated install_sw
 cd -
@@ -140,7 +140,12 @@ cd -
 git clone %{ngx_mruby_src} -b %{ngx_mruby_rev} --depth 1
 cd ngx_mruby
 %{__cp} -f %{SOURCE7} ./
+%if %{amzn} == 1
 ./configure --with-ngx-src-root=../ --enable-dynamic-module
+%endif
+%if %{amzn} == 2
+./configure --with-ngx-src-root=../ --enable-dynamic-module --with-openssl-src=../openssl-%{openssl_version}
+%endif
 make build_mruby -j 4
 make mrbgems_config_dynamic
 # End Building mruby
