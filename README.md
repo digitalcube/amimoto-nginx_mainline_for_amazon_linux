@@ -20,8 +20,10 @@ $ git clone https://github.com/OpsRockin/nginx_preview_for_amimoto.git ~/rpmbuil
 
 - edit `nginx_version`
   - mod NGINX_VERSION
+  - mod OPENSSL_VERSION (optional)
 - edit `SPECS/nginx.spec`
   - mod Version, Release
+  - mod openssl_version (optional)
   - mod ngx_mruby_rev (optional)
   - append note to `%changelog` section
 

@@ -420,6 +420,8 @@ if [ $1 -ge 1 ]; then
 fi
 
 %changelog
+* Wed Nov 27 2019 Yukihiko Sawanobori <sawanoboriyu@higanworks.com>
+- 1.17.6.3: built with OpenSSL 1.1.1d to support TLS1.3
 * Fri Nov 22 2019 Yukihiko Sawanobori <sawanoboriyu@higanworks.com>
 - 1.17.6.2: change SYSV to Systemd
 * Wed Nov 20 2019 Yukihiko Sawanobori <sawanoboriyu@higanworks.com>
