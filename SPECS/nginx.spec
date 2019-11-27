@@ -95,14 +95,12 @@ Avalable modules are...
 // ngx_mruby extended classes
   - ngx_mruby_mrblib
   - rack-based-api
+  - auto-ssl
 // mrbgems
-  - iij/mruby-io
   - iij/mruby-env
   - iij/mruby-dir
   - iij/mruby-digest
   - iij/mruby-process
-  - iij/mruby-pack
-  - iij/mruby-socket
   - mattn/mruby-json
   - mattn/mruby-onig-regexp
   - matsumoto-r/mruby-redis
@@ -112,7 +110,8 @@ Avalable modules are...
   - matsumoto-r/mruby-uname
   - matsumoto-r/mruby-mutex
   - matsumoto-r/mruby-localmemcache
-  - matsumoto-r/mruby-httprequest
+  - mruby-secure-random
+  - kaihar4/mruby-ipaddress_matcher
 
 # %debug_package %{nil}
 
@@ -425,6 +424,7 @@ fi
 %changelog
 * Wed Nov 27 2019 Yukihiko Sawanobori <sawanoboriyu@higanworks.com>
 - 1.17.6.3: built with OpenSSL 1.1.1d to support TLS1.3
+- update mruby modules
 * Fri Nov 22 2019 Yukihiko Sawanobori <sawanoboriyu@higanworks.com>
 - 1.17.6.2: change SYSV to Systemd
 * Wed Nov 20 2019 Yukihiko Sawanobori <sawanoboriyu@higanworks.com>

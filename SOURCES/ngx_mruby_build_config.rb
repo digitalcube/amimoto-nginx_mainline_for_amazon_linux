@@ -10,13 +10,10 @@ MRuby::Build.new do |conf|
   #
   # Recommended for ngx_mruby
   #
-  conf.gem :github => 'iij/mruby-io'
   conf.gem :github => 'iij/mruby-env'
   conf.gem :github => 'iij/mruby-dir'
   conf.gem :github => 'iij/mruby-digest'
   conf.gem :github => 'iij/mruby-process'
-  conf.gem :github => 'iij/mruby-pack'
-  conf.gem :github => 'iij/mruby-socket'
   conf.gem :github => 'mattn/mruby-json'
   conf.gem :github => 'mattn/mruby-onig-regexp'
   conf.gem :github => 'matsumoto-r/mruby-redis'
@@ -26,12 +23,13 @@ MRuby::Build.new do |conf|
   conf.gem :github => 'matsumoto-r/mruby-uname'
   conf.gem :github => 'matsumoto-r/mruby-mutex'
   conf.gem :github => 'matsumoto-r/mruby-localmemcache'
-  conf.gem :github => 'matsumoto-r/mruby-httprequest'
+  conf.gem :mgem => 'mruby-secure-random'
   conf.gem :github => 'kaihar4/mruby-ipaddress_matcher'
 
   # ngx_mruby extended class
   conf.gem './mrbgems/ngx_mruby_mrblib'
   conf.gem './mrbgems/rack-based-api'
+  conf.gem './mrbgems/auto-ssl'
 
   # use memcached
   # conf.gem :github => 'matsumoto-r/mruby-memcached'
