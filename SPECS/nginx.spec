@@ -128,7 +128,6 @@ make install
 cd -
 %endif
 
-
 # extract psol
 cd incubator-pagespeed-ngx-%{ngx_pagespeed_rev}-stable
 %{__tar} -xzf %{SOURCE9}
