@@ -121,7 +121,8 @@ Avalable modules are...
 %{__tar} -xzf %{SOURCE11} -C openssl-%{openssl_version} --strip-components 1
 cd openssl-%{openssl_version}
 ./config --prefix=/usr/local --shared zlib -fPIC
-make install
+make depend
+make build_all_generated install_sw
 cd -
 %endif
 
