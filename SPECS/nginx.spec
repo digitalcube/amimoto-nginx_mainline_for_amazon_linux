@@ -48,7 +48,7 @@ Source8: incubator-pagespeed-ngx_%{ngx_pagespeed_rev}.tar.gz
 Source9: psol_%{psol_rev}.tar.gz
 %if %{amzn} == 2
 Source10: nginx-upgrade
-Source11: openssl-%{openssl_version}.tar.gz
+Source11: openssl-%{openssl_version}-latest.tar.gz
 %endif
 
 License: 2-clause BSD-like license
@@ -192,7 +192,7 @@ export PSOL_BINARY=${RPM_BUILD_DIR}/%{name}-%{version}/incubator-pagespeed-ngx-%
   --add-module=$RPM_BUILD_DIR/%{name}-%{version}/ngx_mruby/dependence/ngx_devel_kit \
   --add-dynamic-module=$RPM_BUILD_DIR/%{name}-%{version}/ngx_mruby \
 %if %{amzn} == 2
-   --with-openssl=$RPM_BUILD_DIR/%{name}-%{version}/openssl-%{openssl_version} \
+   --with-openssl-src=$RPM_BUILD_DIR/%{name}-%{version}/openssl-%{openssl_version}-latest \
 %endif
   --with-threads
 make %{?_smp_mflags}
