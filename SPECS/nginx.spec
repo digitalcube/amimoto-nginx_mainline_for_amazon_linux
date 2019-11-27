@@ -122,11 +122,11 @@ Avalable modules are...
 # build openssl
 %{__mkdir} openssl-%{openssl_version}
 %{__tar} -xzf %{SOURCE11} -C openssl-%{openssl_version} --strip-components 1
-cd openssl-%{openssl_version}
-./config --prefix=/usr/local zlib -fPIC
-make depend
-make build_all_generated install_sw
-cd -
+# cd openssl-%{openssl_version}
+# ./config --prefix=/usr/local zlib -fPIC
+# make depend
+# make build_all_generated install_sw
+# cd -
 %endif
 
 # extract psol
