@@ -118,9 +118,11 @@ Avalable modules are...
 # %debug_package %{nil}
 
 %prep
+%if %{amzn} == 1
 %setup -q -a 6 -a 8
+%endif
 %if %{amzn} == 2
-%setup -q -a 11
+%setup -q -a 6 -a 8 -a 11
 %endif
 
 
