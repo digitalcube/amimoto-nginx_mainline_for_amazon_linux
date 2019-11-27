@@ -196,7 +196,7 @@ export PSOL_BINARY=${RPM_BUILD_DIR}/%{name}-%{version}/incubator-pagespeed-ngx-%
   --add-module=$RPM_BUILD_DIR/%{name}-%{version}/ngx_mruby/dependence/ngx_devel_kit \
   --add-dynamic-module=$RPM_BUILD_DIR/%{name}-%{version}/ngx_mruby \
 %if %{amzn} == 2
-   --with-openssl-src=$RPM_BUILD_DIR/%{name}-%{version}/openssl-%{openssl_version} \
+   --with-openssl=$RPM_BUILD_DIR/%{name}-%{version}/openssl-%{openssl_version} \
 %endif
   --with-threads
 make %{?_smp_mflags}
