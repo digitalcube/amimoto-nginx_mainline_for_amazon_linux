@@ -12,8 +12,11 @@ Group: System Environment/Daemons
 Requires(pre): shadow-utils
 Requires: initscripts >= 8.36
 Requires(post): chkconfig
+
+%if %{amzn} == 1
 Requires: openssl >= 1.0.1
 BuildRequires: openssl-devel >= 1.0.1
+%endif
 
 ## dynamic-modules
 %define ngx_cache_purge_rev 2.3.dynamic
