@@ -32,6 +32,7 @@ jobs:
             - RPMS
             - nginx_version
             - NPS_VERSION
+            - OPENSSL_VERSION
       - store_artifacts:
           path: /root/rpmbuild/RPMS
   test:

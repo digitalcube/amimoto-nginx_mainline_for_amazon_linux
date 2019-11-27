@@ -32,6 +32,7 @@ on EC2 (DEPRECATED)
 ```
 $ source ./nginx_version
 $ source ./NPS_VERSION
+$ source ./OPENSSL_VERSION
 $ cd ~/rpmbuild
 $ sudo yum -y install pcre-devel openssl-devel libxml2-devel libxslt-devel gd-devel perl-devel perl-ExtUtils-Embed geoip-devel gperftools-devel
 $ wget http://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz -O SOURCES/nginx-${NGINX_VERSION}.tar.gz
@@ -45,6 +46,8 @@ or Docker (Current maintenance target)
 ```
 source ./nginx_version
 source ./NPS_VERSION
+source ./OPENSSL_VERSION
+wget https://www.openssl.org/source/openssl-${OPENSSL_VERSION}.tar.gz -O SOURCES/openssl-${OPENSSL_VERSION}.tar.gz
 wget http://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz -O SOURCES/nginx-${NGINX_VERSION}.tar.gz
 wget https://github.com/OpsRockin/ngx_cache_purge/archive/2.3.dynamic.tar.gz -O SOURCES/ngx_cache_purge_2.3.dynamic.tar.gz
 wget https://codeload.github.com/apache/incubator-pagespeed-ngx/tar.gz/v${NPS_VERSION}-stable -O SOURCES/incubator-pagespeed-ngx_${NPS_VERSION}.tar.gz

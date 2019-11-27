@@ -23,11 +23,16 @@ BuildRequires: openssl-devel >= 1.0.1
 %define ngx_mruby_src https://github.com/matsumoto-r/ngx_mruby.git
 # end of distribution specific definitions
 
+%if %{amzn} == 2
+%define openssl_version 1.1.1d
+%define with_openssl --with-openssl=../openssl-%{openssl_version}
+%endif
+
 Summary: A high performance web server and reverse proxy server(for Amimoto Wordpress)
 Name: nginx
 Epoch: 1
 Version: 1.17.6
-Release: 2%{?dist}.amimoto
+Release: 3%{?dist}.amimoto
 Packager: OpsRock LLC
 Vendor: nginx inc. via OpsRock LLC
 URL: http://nginx.org/
@@ -44,6 +49,7 @@ Source8: incubator-pagespeed-ngx_%{ngx_pagespeed_rev}.tar.gz
 Source9: psol_%{psol_rev}.tar.gz
 %if %{amzn} == 2
 Source10: nginx-upgrade
+Source11: openssl-%{openssl_version}.tar.gz
 %endif
 
 License: 2-clause BSD-like license
@@ -113,6 +119,11 @@ Avalable modules are...
 
 %prep
 %setup -q -a 6 -a 8
+%if %{amzn} == 2
+%setup -q -a 11
+%endif
+
+
 # extract psol
 cd incubator-pagespeed-ngx-%{ngx_pagespeed_rev}-stable
 %{__tar} -xzf %{SOURCE9}
@@ -179,7 +190,7 @@ export PSOL_BINARY=${RPM_BUILD_DIR}/%{name}-%{version}/incubator-pagespeed-ngx-%
   --add-dynamic-module=$RPM_BUILD_DIR/%{name}-%{version}/incubator-pagespeed-ngx-%{ngx_pagespeed_rev}-stable \
   --add-module=$RPM_BUILD_DIR/%{name}-%{version}/ngx_mruby/dependence/ngx_devel_kit \
   --add-dynamic-module=$RPM_BUILD_DIR/%{name}-%{version}/ngx_mruby \
-  --with-threads
+  --with-threads %{with_openssl}
 make %{?_smp_mflags}
 
 %install
