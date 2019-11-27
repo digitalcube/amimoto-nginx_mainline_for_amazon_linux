@@ -144,7 +144,7 @@ cd ngx_mruby
 ./configure --with-ngx-src-root=../ --enable-dynamic-module
 %endif
 %if %{amzn} == 2
-./configure --with-ngx-src-root=../ --enable-dynamic-module --with-openssl-src=../openssl-%{openssl_version}
+./configure --with-ngx-src-root=../ --enable-dynamic-module --with-openssl-src=$RPM_BUILD_DIR/%{name}-%{version}/openssl-%{openssl_version}
 %endif
 make build_mruby -j 4
 make mrbgems_config_dynamic
