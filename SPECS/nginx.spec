@@ -139,15 +139,17 @@ cd -
 # Start Building mruby
 git clone %{ngx_mruby_src} -b %{ngx_mruby_rev} --depth 1
 cd ngx_mruby
-%{__cp} -f %{SOURCE7} ./
+# %{__cp} -f %{SOURCE7} ./build_config.rb
 %if %{amzn} == 1
 ./configure --with-ngx-src-root=../ --enable-dynamic-module
+make build_mruby -j 4
+make mrbgems_config_dynamic
 %endif
 %if %{amzn} == 2
 ./configure --with-ngx-src-root=../ --enable-dynamic-module --with-openssl-src=$RPM_BUILD_DIR/%{name}-%{version}/openssl-%{openssl_version}
+LD_LIBRARY_PATH=$RPM_BUILD_DIR/%{name}-%{version}/openssl-%{openssl_version}/.openssl/lib NGX_MRUBY_LDFLAGS="-L$RPM_BUILD_DIR/%{name}-%{version}/openssl-%{openssl_version}/.openssl/lib -lcrypto" NGX_MRUBY_CFLAGS="-I$RPM_BUILD_DIR/%{name}-%{version}/openssl-%{openssl_version}/.openssl/include" make build_mruby -j 4 -I$RPM_BUILD_DIR/%{name}-%{version}/openssl-%{openssl_version}/.openssl
+LD_LIBRARY_PATH=$RPM_BUILD_DIR/%{name}-%{version}/openssl-%{openssl_version}/.openssl/lib NGX_MRUBY_LDFLAGS="-L$RPM_BUILD_DIR/%{name}-%{version}/openssl-%{openssl_version}/.openssl/lib -lcrypto" NGX_MRUBY_CFLAGS="-I$RPM_BUILD_DIR/%{name}-%{version}/openssl-%{openssl_version}/.openssl/include" make mrbgems_config_dynamic -I$RPM_BUILD_DIR/%{name}-%{version}/openssl-%{openssl_version}/.openssl
 %endif
-make build_mruby -j 4
-make mrbgems_config_dynamic
 # End Building mruby
 
 %build
