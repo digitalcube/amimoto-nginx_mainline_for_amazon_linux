@@ -10,7 +10,9 @@
 %define use_systemd (0%{?fedora} && 0%{?fedora} >= 18) || (0%{?rhel} && 0%{?rhel} >= 7) || (0%{?suse_version} == 1315)
 Group: System Environment/Daemons
 Requires(pre): shadow-utils
+%if %{amzn} == 1
 Requires: initscripts >= 8.36
+%endif
 Requires(post): chkconfig
 
 %if %{amzn} == 1
@@ -270,6 +272,7 @@ make %{?_smp_mflags}
 %{__rm} -rf $RPM_BUILD_ROOT/usr/local
 %{__rm} $RPM_BUILD_ROOT/usr/lib64/perl5/perllocal.pod
 
+%if %{amzn} == 1
 # install mruby binaries
 %{__mkdir} -p $RPM_BUILD_ROOT%{mruby_dir}/bin
 %{__install} -p $RPM_BUILD_DIR/%{name}-%{version}/ngx_mruby/mruby/bin/mruby-config \
@@ -282,6 +285,7 @@ make %{?_smp_mflags}
    $RPM_BUILD_ROOT%{mruby_dir}/bin/mrbc
 %{__install} -p $RPM_BUILD_DIR/%{name}-%{version}/ngx_mruby/mruby/bin/mruby-strip \
    $RPM_BUILD_ROOT%{mruby_dir}/bin/mruby-strip
+%endif
 
 %clean
 %{__rm} -rf $RPM_BUILD_ROOT
@@ -342,11 +346,13 @@ make %{?_smp_mflags}
 
 %files mod-ngx_mruby
 %{_datadir}/nginx/modules/ngx_http_mruby_module.so
+%if %{amzn} == 1
 %{mruby_dir}/bin/mruby-config
 %{mruby_dir}/bin/mirb
 %{mruby_dir}/bin/mruby
 %{mruby_dir}/bin/mrbc
 %{mruby_dir}/bin/mruby-strip
+%endif
 
 %files mod-ngx_pagespeed
 %{_datadir}/nginx/modules/ngx_pagespeed.so
