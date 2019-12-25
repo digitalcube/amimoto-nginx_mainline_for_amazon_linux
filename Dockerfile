@@ -7,7 +7,7 @@ RUN yum -y update && yum -y install rpm-build git gcc make autoconf tmux \
   gd-devel perl-devel perl-ExtUtils-Embed geoip-devel gperftools-devel \
   rubygem-rake bison gcc-c++ libuuid-devel
 
-RUN bash -c 'if [ "$BASE_TAG" -eq 1 ] ; then yum -y install openssl-devel ; fi'
+# RUN bash -c 'if [ "$BASE_TAG" -eq "2018.03-with-sources" ] ; then yum -y install openssl-devel ; fi'
 
 RUN mkdir -p /root/rpmbuild
 
