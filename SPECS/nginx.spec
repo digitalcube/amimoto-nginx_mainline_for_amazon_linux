@@ -15,11 +15,6 @@ Requires: initscripts >= 8.36
 %endif
 Requires(post): chkconfig
 
-%if %{amzn} == 1
-Requires: openssl >= 1.0.1
-BuildRequires: openssl-devel >= 1.0.1
-%endif
-
 ## dynamic-modules
 %define ngx_cache_purge_rev 2.3.dynamic
 %define ngx_pagespeed_rev 1.13.35.2
@@ -28,15 +23,13 @@ BuildRequires: openssl-devel >= 1.0.1
 %define ngx_mruby_src https://github.com/matsumoto-r/ngx_mruby.git
 # end of distribution specific definitions
 
-%if %{amzn} == 2
 %define openssl_version 1.1.1
-%endif
 
 Summary: A high performance web server and reverse proxy server(for Amimoto Wordpress)
 Name: nginx
 Epoch: 1
-Version: 1.17.6
-Release: 3%{?dist}.amimoto
+Version: 1.17.7
+Release: 1%{?dist}.amimoto
 Packager: OpsRock LLC
 Vendor: nginx inc. via OpsRock LLC
 URL: http://nginx.org/
@@ -51,9 +44,9 @@ Source6: ngx_cache_purge_%{ngx_cache_purge_rev}.tar.gz
 Source7: ngx_mruby_build_config.rb
 Source8: incubator-pagespeed-ngx_%{ngx_pagespeed_rev}.tar.gz
 Source9: psol_%{psol_rev}.tar.gz
+Source10: openssl-%{openssl_version}-latest.tar.gz
 %if %{amzn} == 2
-Source10: nginx-upgrade
-Source11: openssl-%{openssl_version}-latest.tar.gz
+Source11: nginx-upgrade
 %endif
 
 License: 2-clause BSD-like license
@@ -120,16 +113,9 @@ Avalable modules are...
 
 %prep
 %setup -q -a 6 -a 8
-%if %{amzn} == 2
 # build openssl
 %{__mkdir} openssl-%{openssl_version}
-%{__tar} -xzf %{SOURCE11} -C openssl-%{openssl_version} --strip-components 1
-# cd openssl-%{openssl_version}
-# ./config --prefix=/usr/local zlib -fPIC
-# make depend
-# make build_all_generated install_sw
-# cd -
-%endif
+%{__tar} -xzf %{SOURCE10} -C openssl-%{openssl_version} --strip-components 1
 
 # extract psol
 cd incubator-pagespeed-ngx-%{ngx_pagespeed_rev}-stable
@@ -142,16 +128,9 @@ cd -
 git clone %{ngx_mruby_src} -b %{ngx_mruby_rev} --depth 1
 cd ngx_mruby
 # %{__cp} -f %{SOURCE7} ./build_config.rb
-%if %{amzn} == 1
-./configure --with-ngx-src-root=../ --enable-dynamic-module
-make build_mruby -j 4
-make mrbgems_config_dynamic
-%endif
-%if %{amzn} == 2
 ./configure --with-ngx-src-root=../ --enable-dynamic-module --with-openssl-src=$RPM_BUILD_DIR/%{name}-%{version}/openssl-%{openssl_version}
 LD_LIBRARY_PATH=$RPM_BUILD_DIR/%{name}-%{version}/openssl-%{openssl_version}/.openssl/lib NGX_MRUBY_LDFLAGS="-L$RPM_BUILD_DIR/%{name}-%{version}/openssl-%{openssl_version}/.openssl/lib -lcrypto" NGX_MRUBY_CFLAGS="-I$RPM_BUILD_DIR/%{name}-%{version}/openssl-%{openssl_version}/.openssl/include" make build_mruby -j 4 -I$RPM_BUILD_DIR/%{name}-%{version}/openssl-%{openssl_version}/.openssl
 LD_LIBRARY_PATH=$RPM_BUILD_DIR/%{name}-%{version}/openssl-%{openssl_version}/.openssl/lib NGX_MRUBY_LDFLAGS="-L$RPM_BUILD_DIR/%{name}-%{version}/openssl-%{openssl_version}/.openssl/lib -lcrypto" NGX_MRUBY_CFLAGS="-I$RPM_BUILD_DIR/%{name}-%{version}/openssl-%{openssl_version}/.openssl/include" make mrbgems_config_dynamic -I$RPM_BUILD_DIR/%{name}-%{version}/openssl-%{openssl_version}/.openssl
-%endif
 # End Building mruby
 
 %build
@@ -204,9 +183,7 @@ export PSOL_BINARY=${RPM_BUILD_DIR}/%{name}-%{version}/incubator-pagespeed-ngx-%
   --add-dynamic-module=$RPM_BUILD_DIR/%{name}-%{version}/incubator-pagespeed-ngx-%{ngx_pagespeed_rev}-stable \
   --add-module=$RPM_BUILD_DIR/%{name}-%{version}/ngx_mruby/dependence/ngx_devel_kit \
   --add-dynamic-module=$RPM_BUILD_DIR/%{name}-%{version}/ngx_mruby \
-%if %{amzn} == 2
-   --with-openssl=$RPM_BUILD_DIR/%{name}-%{version}/openssl-%{openssl_version} \
-%endif
+  --with-openssl=$RPM_BUILD_DIR/%{name}-%{version}/openssl-%{openssl_version} \
   --with-threads
 make %{?_smp_mflags}
 
@@ -260,7 +237,7 @@ make %{?_smp_mflags}
 %{__install} -m755 %{SOURCE2} \
    $RPM_BUILD_ROOT%{systemd_dir}/nginx.service
 %{__mkdir} -p $RPM_BUILD_ROOT/usr/bin/
-%{__install} -m755 %{SOURCE10} \
+%{__install} -m755 %{SOURCE11} \
    $RPM_BUILD_ROOT/usr/bin/nginx-upgrade
 %endif
 
@@ -271,21 +248,6 @@ make %{?_smp_mflags}
 
 %{__rm} -rf $RPM_BUILD_ROOT/usr/local
 %{__rm} $RPM_BUILD_ROOT/usr/lib64/perl5/perllocal.pod
-
-%if %{amzn} == 1
-# install mruby binaries
-%{__mkdir} -p $RPM_BUILD_ROOT%{mruby_dir}/bin
-%{__install} -p $RPM_BUILD_DIR/%{name}-%{version}/ngx_mruby/mruby/bin/mruby-config \
-   $RPM_BUILD_ROOT%{mruby_dir}/bin/mruby-config
-%{__install} -p $RPM_BUILD_DIR/%{name}-%{version}/ngx_mruby/mruby/bin/mirb \
-   $RPM_BUILD_ROOT%{mruby_dir}/bin/mirb
-%{__install} -p $RPM_BUILD_DIR/%{name}-%{version}/ngx_mruby/mruby/bin/mruby \
-   $RPM_BUILD_ROOT%{mruby_dir}/bin/mruby
-%{__install} -p $RPM_BUILD_DIR/%{name}-%{version}/ngx_mruby/mruby/bin/mrbc \
-   $RPM_BUILD_ROOT%{mruby_dir}/bin/mrbc
-%{__install} -p $RPM_BUILD_DIR/%{name}-%{version}/ngx_mruby/mruby/bin/mruby-strip \
-   $RPM_BUILD_ROOT%{mruby_dir}/bin/mruby-strip
-%endif
 
 %clean
 %{__rm} -rf $RPM_BUILD_ROOT
@@ -346,13 +308,6 @@ make %{?_smp_mflags}
 
 %files mod-ngx_mruby
 %{_datadir}/nginx/modules/ngx_http_mruby_module.so
-%if %{amzn} == 1
-%{mruby_dir}/bin/mruby-config
-%{mruby_dir}/bin/mirb
-%{mruby_dir}/bin/mruby
-%{mruby_dir}/bin/mrbc
-%{mruby_dir}/bin/mruby-strip
-%endif
 
 %files mod-ngx_pagespeed
 %{_datadir}/nginx/modules/ngx_pagespeed.so
@@ -437,6 +392,10 @@ if [ $1 -ge 1 ]; then
 fi
 
 %changelog
+* Wed Dec 25 2019 Yukihiko Sawanobori <sawanoboriyu@higanworks.com>
+- 1.17.7
+- built with OpenSSL 1.1.1d to support TLS1.3 for amzn1
+- remove mruby binaries
 * Wed Nov 27 2019 Yukihiko Sawanobori <sawanoboriyu@higanworks.com>
 - 1.17.6.3: built with OpenSSL 1.1.1d to support TLS1.3
 - update mruby modules
