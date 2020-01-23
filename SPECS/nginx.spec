@@ -234,7 +234,7 @@ make %{?_smp_mflags}
 %if %{amzn} == 2
 # install systemd service
 %{__mkdir} -p $RPM_BUILD_ROOT%{systemd_dir}
-%{__install} -m755 %{SOURCE2} \
+%{__install} -m644 %{SOURCE2} \
    $RPM_BUILD_ROOT%{systemd_dir}/nginx.service
 %{__mkdir} -p $RPM_BUILD_ROOT/usr/bin/
 %{__install} -m755 %{SOURCE11} \
@@ -395,6 +395,7 @@ fi
 * Thu Jan 23 2020 Yukihiko Sawanobori <sawanoboriyu@higanworks.com>
 - 1.17.8
 - ngx_mruby 2.2.0
+- supress_warning: drop executeable flag from nginx.service amzn2
 - bugfix: logrotate issue for amzn2
 * Wed Dec 25 2019 Yukihiko Sawanobori <sawanoboriyu@higanworks.com>
 - 1.17.7
