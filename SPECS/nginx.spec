@@ -35,12 +35,7 @@ Vendor: nginx inc. via OpsRock LLC
 URL: http://nginx.org/
 
 Source0: http://nginx.org/download/%{name}-%{version}.tar.gz
-%if %{amzn} == 1
-   Source1: logrotate
-%endif
-%if %{amzn} == 2
-   Source1: logrotate2
-%endif
+Source1: logrotate%{?amzn}
 Source2: nginx.init%{?amzn}
 Source3: nginx.sysconf
 Source4: nginx.conf
