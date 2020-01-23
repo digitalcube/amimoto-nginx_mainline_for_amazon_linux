@@ -35,7 +35,12 @@ Vendor: nginx inc. via OpsRock LLC
 URL: http://nginx.org/
 
 Source0: http://nginx.org/download/%{name}-%{version}.tar.gz
-Source1: logrotate
+%if %{amzn} == 1
+   Source1: logrotate
+%endif
+%if %{amzn} == 2
+   Source1: logrotate2
+%endif
 Source2: nginx.init%{?amzn}
 Source3: nginx.sysconf
 Source4: nginx.conf
@@ -395,6 +400,7 @@ fi
 * Thu Jan 23 2020 Yukihiko Sawanobori <sawanoboriyu@higanworks.com>
 - 1.17.8
 - ngx_mruby 2.2.0
+- bugfix: logrotate issue for amzn2
 * Wed Dec 25 2019 Yukihiko Sawanobori <sawanoboriyu@higanworks.com>
 - 1.17.7
 - built with OpenSSL 1.1.1d to support TLS1.3 for amzn1
