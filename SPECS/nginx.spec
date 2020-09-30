@@ -174,7 +174,7 @@ export PSOL_BINARY=${RPM_BUILD_DIR}/%{name}-%{version}/incubator-pagespeed-ngx-%
   --with-google_perftools_module \
   --with-debug \
   --with-cc-opt='-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m64 -mtune=generic' \
-  --with-ld-opt='-Wl,-E' \
+  --with-ld-opt='-Wl,-z,relro -Wl,-E' \
   --with-http_v2_module \
   --with-stream \
   --with-stream_ssl_module \
