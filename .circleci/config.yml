@@ -70,7 +70,7 @@ jobs:
       - run:
           name: Set up host system
           command: |
-            sudo service apparmor teardown
+            sudo service apparmor stop
       - run: docker run --name << parameters.pkg >> -d -e CIRCLE_JOB=$CIRCLE_JOB -it --privileged -p 8080:80 -v `pwd`:/mnt/host --workdir /mnt/host opsrock/amzn_linux_with:2-with-sources /sbin/init
       - run: sleep 10
       - run: docker exec << parameters.pkg >> ./ci/build_deps.sh
