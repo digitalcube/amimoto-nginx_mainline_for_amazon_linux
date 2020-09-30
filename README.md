@@ -1,6 +1,6 @@
 # Nginx mainline for Amazon Linux 1 and 2 with ngx_mruby
 
-[![CircleCI](https://circleci.com/gh/OpsRockin/nginx_mainline_for_amazon_linux.svg?style=svg)](https://circleci.com/gh/OpsRockin/nginx_mainline_for_amazon_linux)
+[![CircleCI](https://circleci.com/gh/digitalcube/amimoto-nginx_mainline_for_amazon_linux.svg?style=svg)](https://circleci.com/gh/digitalcube/amimoto-nginx_mainline_for_amazon_linux)
 
 includes
 
