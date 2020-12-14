@@ -29,7 +29,7 @@ Summary: A high performance web server and reverse proxy server(for Amimoto Word
 Name: nginx
 Epoch: 1
 Version: 1.19.5
-Release: 1%{?dist}.amimoto
+Release: 2%{?dist}.amimoto
 Packager: OpsRock LLC
 Vendor: nginx inc. via OpsRock LLC
 URL: http://nginx.org/
@@ -392,6 +392,8 @@ if [ $1 -ge 1 ]; then
 fi
 
 %changelog
+* Mon Dec 14 2020 Yukihiko Sawanobori <sawanoboriyu@higanworks.com>
+- update openssl CVE-2020-1971
 * Mon Nov 30 2020 Yukihiko Sawanobori <sawanoboriyu@higanworks.com>
 - 1.19.5
 * Wed Nov 04 2020 Yukihiko Sawanobori <sawanoboriyu@higanworks.com>
