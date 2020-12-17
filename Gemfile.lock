@@ -31,6 +31,10 @@ GEM
 
 PLATFORMS
   ruby
+  x86_64-darwin-20
 
 DEPENDENCIES
   package_cloud
+
+BUNDLED WITH
+   2.2.1
