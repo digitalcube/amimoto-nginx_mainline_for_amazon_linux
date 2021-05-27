@@ -392,7 +392,7 @@ if [ $1 -ge 1 ]; then
 fi
 
 %changelog
-* Wed Mar 05 2021 Yukihiko Sawanobori <sawanoboriyu@higanworks.com>
+* Wed Mar 26 2021 Yukihiko Sawanobori <sawanoboriyu@higanworks.com>
 - 1.21.0
 * Wed Apr 14 2021 Yukihiko Sawanobori <sawanoboriyu@higanworks.com>
 - 1.19.9
