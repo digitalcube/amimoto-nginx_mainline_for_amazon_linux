@@ -9,3 +9,4 @@
 .kitchen/
 .kitchen.local.yml
 /.envrc
+/sync_rpm/
