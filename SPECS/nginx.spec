@@ -17,8 +17,6 @@ Requires(post): chkconfig
 
 ## dynamic-modules
 %define ngx_cache_purge_rev 2.3.dynamic
-%define ngx_pagespeed_rev 1.13.35.2
-%define psol_rev 1.13.35.2
 %define ngx_mruby_rev v2.3.0
 %define ngx_mruby_src https://github.com/matsumoto-r/ngx_mruby.git
 # end of distribution specific definitions
@@ -42,8 +40,6 @@ Source4: nginx.conf
 Source5: virtual.conf
 Source6: ngx_cache_purge_%{ngx_cache_purge_rev}.tar.gz
 Source7: ngx_mruby_build_config.rb
-Source8: incubator-pagespeed-ngx_%{ngx_pagespeed_rev}.tar.gz
-Source9: psol_%{psol_rev}.tar.gz
 Source10: openssl-%{openssl_version}-latest.tar.gz
 %if %{amzn} == 2
 Source11: nginx-upgrade
@@ -74,13 +70,6 @@ Requires:       %{name} >= 1.9.11
 
 %description    mod-http_cache_purge23
 Dinamic built http_cache_purge module for %{name}.
-
-%package        mod-ngx_pagespeed
-Summary:        Dinamic built ngx_pagespeed module for %{name}.
-Requires:       %{name} >= 1.9.11
-
-%description    mod-ngx_pagespeed
-Dinamic built ngx_pagespeed module for %{name}.
 
 %package        mod-ngx_mruby
 Summary:        Dinamic built ngx_mruby %{ngx_mruby_rev} module for %{name}.
@@ -117,13 +106,6 @@ Avalable modules are...
 %{__mkdir} openssl-%{openssl_version}
 %{__tar} -xzf %{SOURCE10} -C openssl-%{openssl_version} --strip-components 1
 
-# extract psol
-cd incubator-pagespeed-ngx-%{ngx_pagespeed_rev}-stable
-%{__tar} -xzf %{SOURCE9}
-## should use Release force
-sed -e "s@buildtype=Debug@buildtype=Release@g" config -i
-cd -
-
 # Start Building mruby
 git clone %{ngx_mruby_src} -b %{ngx_mruby_rev} --depth 1
 cd ngx_mruby
@@ -134,7 +116,6 @@ LD_LIBRARY_PATH=$RPM_BUILD_DIR/%{name}-%{version}/openssl-%{openssl_version}/.op
 # End Building mruby
 
 %build
-export PSOL_BINARY=${RPM_BUILD_DIR}/%{name}-%{version}/incubator-pagespeed-ngx-%{ngx_pagespeed_rev}-stable/psol/lib/Release/linux/x64/pagespeed_automatic.a
 ./configure \
   --prefix=/usr/share/nginx \
   --sbin-path=/usr/sbin/nginx \
@@ -180,7 +161,6 @@ export PSOL_BINARY=${RPM_BUILD_DIR}/%{name}-%{version}/incubator-pagespeed-ngx-%
   --with-stream_ssl_module \
   --without-stream_access_module \
   --add-dynamic-module=$RPM_BUILD_DIR/%{name}-%{version}/ngx_cache_purge-%{ngx_cache_purge_rev} \
-  --add-dynamic-module=$RPM_BUILD_DIR/%{name}-%{version}/incubator-pagespeed-ngx-%{ngx_pagespeed_rev}-stable \
   --add-module=$RPM_BUILD_DIR/%{name}-%{version}/ngx_mruby/dependence/ngx_devel_kit \
   --add-dynamic-module=$RPM_BUILD_DIR/%{name}-%{version}/ngx_mruby \
   --with-openssl=$RPM_BUILD_DIR/%{name}-%{version}/openssl-%{openssl_version} \
@@ -309,9 +289,6 @@ make %{?_smp_mflags}
 %files mod-ngx_mruby
 %{_datadir}/nginx/modules/ngx_http_mruby_module.so
 
-%files mod-ngx_pagespeed
-%{_datadir}/nginx/modules/ngx_pagespeed.so
-
 %pre
 getent group nginx > /dev/null || groupadd -r nginx
 getent passwd nginx > /dev/null || \
@@ -395,6 +372,7 @@ fi
 * Mon Mar 20 2023 Yukihiko Sawanobori <sawanoboriyu@higanworks.com>
 - 1.23.3
 - ngx_mruby 2.3.0
+- drop support pagespeed
 * Wed May 25 2022 Yukihiko Sawanobori <sawanoboriyu@higanworks.com>
 - 1.21.6
 * Wed Sep 08 2021 Yukihiko Sawanobori <sawanoboriyu@higanworks.com>
