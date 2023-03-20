@@ -101,7 +101,7 @@ Avalable modules are...
 # %debug_package %{nil}
 
 %prep
-%setup -q -a 6 -a 8
+%setup -q -a 6
 # build openssl
 %{__mkdir} openssl-%{openssl_version}
 %{__tar} -xzf %{SOURCE10} -C openssl-%{openssl_version} --strip-components 1

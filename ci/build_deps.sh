@@ -15,8 +15,6 @@ if [ "$CIRCLE_JOB" == "build1" ] ; then
   wget https://www.openssl.org/source/openssl-${OPENSSL_VERSION}${OPENSSL_SUBVERSION}.tar.gz -O SOURCES/openssl-${OPENSSL_VERSION}-latest.tar.gz
   wget http://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz -O SOURCES/nginx-${NGINX_VERSION}.tar.gz
   wget https://github.com/OpsRockin/ngx_cache_purge/archive/2.3.dynamic.tar.gz -O SOURCES/ngx_cache_purge_2.3.dynamic.tar.gz
-  wget https://codeload.github.com/pagespeed/ngx_pagespeed/tar.gz/v${NPS_VERSION}-stable -O SOURCES/incubator-pagespeed-ngx_${NPS_VERSION}.tar.gz
-  wget https://dl.google.com/dl/page-speed/psol/${PSOL_VERSION}-x64.tar.gz -O SOURCES/psol_${PSOL_VERSION}.tar.gz
 fi
 
 if [ "$CIRCLE_JOB" == "build2" ] ; then
@@ -24,8 +22,6 @@ if [ "$CIRCLE_JOB" == "build2" ] ; then
   wget https://www.openssl.org/source/openssl-${OPENSSL_VERSION}${OPENSSL_SUBVERSION}.tar.gz -O SOURCES/openssl-${OPENSSL_VERSION}-latest.tar.gz
   wget http://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz -O SOURCES/nginx-${NGINX_VERSION}.tar.gz
   wget https://github.com/OpsRockin/ngx_cache_purge/archive/2.3.dynamic.tar.gz -O SOURCES/ngx_cache_purge_2.3.dynamic.tar.gz
-  wget https://codeload.github.com/pagespeed/ngx_pagespeed/tar.gz/v${NPS_VERSION}-stable -O SOURCES/incubator-pagespeed-ngx_${NPS_VERSION}.tar.gz
-  wget https://dl.google.com/dl/page-speed/psol/${PSOL_VERSION}-x64.tar.gz -O SOURCES/psol_${PSOL_VERSION}.tar.gz
 fi
 
 if [ "$CIRCLE_JOB" == "test2" ] ; then
