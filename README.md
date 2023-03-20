@@ -96,29 +96,3 @@ Add nginx.conf to enable module below.
 ```
 load_module modules/ngx_http_cache_purge_module.so;
 ```
-
-
-### [ngx_pagespeed](https://www.modpagespeed.com/)
-
-check latest stable
-
-```
-curl -sS https://www.modpagespeed.com/doc/release_notes | grep release_ | head -1 | sed -e "s/^.*release_\([0-9\.]*\)-beta.*/\1/"
-#=> <h2 id="release_1.12.34.3-stable">Release 1.12.34.3-stable</h2>
-```
-
-```
-load_module modules/ngx_pagespeed.so;
-```
-
-```
-http or server {
-  pagespeed on;
-  pagespeed FileCachePath /var/ngx_pagespeed_cache;
-
-...
-
-}
-```
-
-See https://www.modpagespeed.com/doc/configuration
