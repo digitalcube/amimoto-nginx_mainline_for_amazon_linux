@@ -7,7 +7,6 @@ includes
 - TLS1.3 support (amzn2)
 - ngx_mruby
 - ngx_cache_purge
-- ngx_pagespeed
 
 ## Setup
 
