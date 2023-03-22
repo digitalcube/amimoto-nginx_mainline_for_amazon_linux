@@ -7,7 +7,7 @@ executors:
       - image: amazonlinux:2018.03-with-sources
   amazonlinux2:
     docker:
-      - image: opsrock/amzn_linux_with:2-with-sources
+      - image: ghcr.io/opsrockin/amzn_linux_with:2-with-sources
   machine_test:
     machine:
       image: ubuntu-2004:202008-01
