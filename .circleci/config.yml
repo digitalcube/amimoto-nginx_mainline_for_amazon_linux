@@ -8,9 +8,12 @@ executors:
   amazonlinux2:
     docker:
       - image: ghcr.io/opsrockin/amzn_linux_with:2-with-sources
+  amazonlinux2023:
+    docker:
+      - image: ghcr.io/opsrockin/amzn_linux_with:2023
   machine_test:
     machine:
-      image: ubuntu-2004:202008-01
+      image: ubuntu-2204:current
       # https://circleci.com/docs/2.0/configuration-reference/#machine
 
 jobs:
@@ -90,6 +93,9 @@ workflows:
       - build:
           name: build2
           e: amazonlinux2
+      - build:
+          name: build2023
+          e: amazonlinux2023
       - test:
           name: test1
           e: amazonlinux1
@@ -102,3 +108,9 @@ workflows:
           pkg: amzn2
           requires:
             - build2
+      - m_test:
+          name: test2023
+          e: machine_test
+          pkg: amzn2023
+          requires:
+            - build2023
