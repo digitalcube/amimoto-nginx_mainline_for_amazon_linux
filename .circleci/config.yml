@@ -44,7 +44,7 @@ jobs:
         type: executor
       pkg:
         type: enum
-        enum: ["amzn1", "amzn2"]
+        enum: ["amzn1", "amzn2", "amzn2023"]
     executor: << parameters.e >>
     working_directory: /tmp/workspace
     steps:
@@ -64,7 +64,7 @@ jobs:
         type: executor
       pkg:
         type: enum
-        enum: ["amzn2"]
+        enum: ["amzn2", "amzn2023"]
     executor: << parameters.e >>
     working_directory: /tmp/workspace
     steps:
