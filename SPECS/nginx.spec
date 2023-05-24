@@ -131,6 +131,7 @@ LD_LIBRARY_PATH=$RPM_BUILD_DIR/%{name}-%{version}/openssl-%{openssl_version}/.op
   --lock-path=/var/lock/subsys/nginx \
   --user=nginx --group=nginx \
   --with-file-aio \
+  --with-http_v3_module \
   --with-http_ssl_module \
   --with-http_realip_module \
   --with-http_addition_module \
@@ -371,6 +372,7 @@ fi
 %changelog
 * Thu May 24 2023 Yukihiko Sawanobori <sawanoboriyu@higanworks.com>
 - 1.25.0
+- add --with-http_v3_module option
 * Mon Mar 20 2023 Yukihiko Sawanobori <sawanoboriyu@higanworks.com>
 - 1.23.3
 - ngx_mruby 2.3.0
