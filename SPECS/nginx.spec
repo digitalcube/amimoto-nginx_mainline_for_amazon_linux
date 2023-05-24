@@ -370,7 +370,7 @@ if [ $1 -ge 1 ]; then
 fi
 
 %changelog
-* Thu May 24 2023 Yukihiko Sawanobori <sawanoboriyu@higanworks.com>
+* Wed May 24 2023 Yukihiko Sawanobori <sawanoboriyu@higanworks.com>
 - 1.25.0
 - add --with-http_v3_module option
 * Mon Mar 20 2023 Yukihiko Sawanobori <sawanoboriyu@higanworks.com>
