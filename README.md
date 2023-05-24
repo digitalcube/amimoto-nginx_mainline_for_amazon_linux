@@ -46,9 +46,8 @@ or Docker (Current maintenance target)
 
 ```
 source ./nginx_version
-source ./NPS_VERSION
 source ./OPENSSL_VERSION
-wget https://www.openssl.org/source/openssl-${OPENSSL_VERSION}-latest.tar.gz -O SOURCES/openssl-${OPENSSL_VERSION}-latest.tar.gz
+wget https://www.openssl.org/source/openssl-${OPENSSL_VERSION}${OPENSSL_SUBVERSION}.tar.gz -O SOURCES/openssl-${OPENSSL_VERSION}-latest.tar.gz
 wget http://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz -O SOURCES/nginx-${NGINX_VERSION}.tar.gz
 wget https://github.com/OpsRockin/ngx_cache_purge/archive/2.3.dynamic.tar.gz -O SOURCES/ngx_cache_purge_2.3.dynamic.tar.gz
 docker pull amazonlinux:2018.03-with-sources # to update base
