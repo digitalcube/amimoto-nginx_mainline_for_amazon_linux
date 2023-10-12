@@ -373,6 +373,7 @@ fi
 * Thu Oct 12 2023 Yukihiko Sawanobori <sawanoboriyu@higanworks.com>
 - 1.25.2
 - ngx_mruby 2.4.0
+- Drop Support Amazon Linux 1
 * Wed May 24 2023 Yukihiko Sawanobori <sawanoboriyu@higanworks.com>
 - 1.25.0
 - add --with-http_v3_module option

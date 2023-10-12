@@ -84,18 +84,18 @@ jobs:
 workflows:
   build_and_test:
     jobs:
-      - build:
-          name: build1
-          e: amazonlinux1
+      # - build:
+      #     name: build1
+      #     e: amazonlinux1
       - build:
           name: build2
           e: amazonlinux2
-      - test:
-          name: test1
-          e: amazonlinux1
-          pkg: amzn1
-          requires:
-            - build1
+      # - test:
+      #     name: test1
+      #     e: amazonlinux1
+      #     pkg: amzn1
+      #     requires:
+      #       - build1
       - m_test:
           name: test2
           e: machine_test
