@@ -110,9 +110,9 @@ Avalable modules are...
 git clone %{ngx_mruby_src} -b %{ngx_mruby_rev} --depth 1
 cd ngx_mruby
 # %{__cp} -f %{SOURCE7} ./build_config.rb
+## WorkAround to avoid `missing separator` ...?
+sed '/^MRUBY_MAK_FILE/a $(shell rm -f $(MRUBY_MAK_FILE))' $RPM_BUILD_DIR/%{name}-%{version}/ngx_mruby/Makefile.in -i
 ./configure --with-ngx-src-root=../ --enable-dynamic-module --with-openssl-src=$RPM_BUILD_DIR/%{name}-%{version}/openssl-%{openssl_version}
-## WorkAround ...?
-sed '/^MRUBY_MAK_FILE/a $(shell rm -f $(MRUBY_MAK_FILE))' $RPM_BUILD_DIR/%{name}-%{version}/ngx_mruby/Makefile.in
 LD_LIBRARY_PATH=$RPM_BUILD_DIR/%{name}-%{version}/openssl-%{openssl_version}/.openssl/lib NGX_MRUBY_LDFLAGS="-L$RPM_BUILD_DIR/%{name}-%{version}/openssl-%{openssl_version}/.openssl/lib -lcrypto" NGX_MRUBY_CFLAGS="-I$RPM_BUILD_DIR/%{name}-%{version}/openssl-%{openssl_version}/.openssl/include" make build_mruby -j 4 -I$RPM_BUILD_DIR/%{name}-%{version}/openssl-%{openssl_version}/.openssl
 LD_LIBRARY_PATH=$RPM_BUILD_DIR/%{name}-%{version}/openssl-%{openssl_version}/.openssl/lib NGX_MRUBY_LDFLAGS="-L$RPM_BUILD_DIR/%{name}-%{version}/openssl-%{openssl_version}/.openssl/lib -lcrypto" NGX_MRUBY_CFLAGS="-I$RPM_BUILD_DIR/%{name}-%{version}/openssl-%{openssl_version}/.openssl/include" make mrbgems_config_dynamic -I$RPM_BUILD_DIR/%{name}-%{version}/openssl-%{openssl_version}/.openssl
 # End Building mruby
