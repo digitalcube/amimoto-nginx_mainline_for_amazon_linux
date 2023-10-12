@@ -17,7 +17,7 @@ Requires(post): chkconfig
 
 ## dynamic-modules
 %define ngx_cache_purge_rev 2.3.dynamic
-%define ngx_mruby_rev v2.3.0
+%define ngx_mruby_rev v2.4.0
 %define ngx_mruby_src https://github.com/matsumoto-r/ngx_mruby.git
 # end of distribution specific definitions
 
@@ -26,7 +26,7 @@ Requires(post): chkconfig
 Summary: A high performance web server and reverse proxy server(for Amimoto Wordpress)
 Name: nginx
 Epoch: 1
-Version: 1.25.0
+Version: 1.25.2
 Release: 1%{?dist}.amimoto
 Packager: OpsRock LLC
 Vendor: nginx inc. via OpsRock LLC
@@ -370,6 +370,9 @@ if [ $1 -ge 1 ]; then
 fi
 
 %changelog
+* Thu Oct 12 2023 Yukihiko Sawanobori <sawanoboriyu@higanworks.com>
+- 1.25.2
+- ngx_mruby 2.4.0
 * Wed May 24 2023 Yukihiko Sawanobori <sawanoboriyu@higanworks.com>
 - 1.25.0
 - add --with-http_v3_module option
