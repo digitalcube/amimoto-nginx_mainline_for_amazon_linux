@@ -17,7 +17,7 @@ Requires(post): chkconfig
 
 ## dynamic-modules
 %define ngx_cache_purge_rev 2.3.dynamic
-%define ngx_mruby_rev v2.4.0
+%define ngx_mruby_rev v2.3.0
 %define ngx_mruby_src https://github.com/matsumoto-r/ngx_mruby.git
 # end of distribution specific definitions
 
@@ -111,7 +111,7 @@ git clone %{ngx_mruby_src} -b %{ngx_mruby_rev} --depth 1
 cd ngx_mruby
 # %{__cp} -f %{SOURCE7} ./build_config.rb
 ## WorkAround to avoid `missing separator` ...?
-sed '/^MRUBY_MAK_FILE/a $(shell rm -f $(MRUBY_MAK_FILE))' $RPM_BUILD_DIR/%{name}-%{version}/ngx_mruby/Makefile.in -i
+# sed '/^MRUBY_MAK_FILE/a $(shell rm -f $(MRUBY_MAK_FILE))' $RPM_BUILD_DIR/%{name}-%{version}/ngx_mruby/Makefile.in -i
 ./configure --with-ngx-src-root=../ --enable-dynamic-module --with-openssl-src=$RPM_BUILD_DIR/%{name}-%{version}/openssl-%{openssl_version}
 LD_LIBRARY_PATH=$RPM_BUILD_DIR/%{name}-%{version}/openssl-%{openssl_version}/.openssl/lib NGX_MRUBY_LDFLAGS="-L$RPM_BUILD_DIR/%{name}-%{version}/openssl-%{openssl_version}/.openssl/lib -lcrypto" NGX_MRUBY_CFLAGS="-I$RPM_BUILD_DIR/%{name}-%{version}/openssl-%{openssl_version}/.openssl/include" make build_mruby -j 4 -I$RPM_BUILD_DIR/%{name}-%{version}/openssl-%{openssl_version}/.openssl
 LD_LIBRARY_PATH=$RPM_BUILD_DIR/%{name}-%{version}/openssl-%{openssl_version}/.openssl/lib NGX_MRUBY_LDFLAGS="-L$RPM_BUILD_DIR/%{name}-%{version}/openssl-%{openssl_version}/.openssl/lib -lcrypto" NGX_MRUBY_CFLAGS="-I$RPM_BUILD_DIR/%{name}-%{version}/openssl-%{openssl_version}/.openssl/include" make mrbgems_config_dynamic -I$RPM_BUILD_DIR/%{name}-%{version}/openssl-%{openssl_version}/.openssl
@@ -374,7 +374,6 @@ fi
 %changelog
 * Thu Oct 12 2023 Yukihiko Sawanobori <sawanoboriyu@higanworks.com>
 - 1.25.2
-- ngx_mruby 2.4.0
 - Drop Support Amazon Linux 1
 * Wed May 24 2023 Yukihiko Sawanobori <sawanoboriyu@higanworks.com>
 - 1.25.0
