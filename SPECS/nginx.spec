@@ -17,7 +17,7 @@ Requires(post): chkconfig
 
 ## dynamic-modules
 %define ngx_cache_purge_rev 2.3.dynamic
-%define ngx_mruby_rev v2.3.0
+%define ngx_mruby_rev v2.4.2
 %define ngx_mruby_src https://github.com/matsumoto-r/ngx_mruby.git
 # end of distribution specific definitions
 
@@ -374,6 +374,7 @@ fi
 %changelog
 * Tue Aug 27 2024 Yukihiko Sawanobori <sawanoboriyu@higanworks.com>
 - 1.27.1
+- ngx_mruby 2.4.2
 * Thu Oct 12 2023 Yukihiko Sawanobori <sawanoboriyu@higanworks.com>
 - 1.25.2
 - Drop Support Amazon Linux 1
