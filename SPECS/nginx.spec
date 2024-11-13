@@ -17,7 +17,7 @@ Requires(post): chkconfig
 
 ## dynamic-modules
 %define ngx_cache_purge_rev 2.3.dynamic
-%define ngx_mruby_rev v2.7.0
+%define ngx_mruby_rev V2.7.0
 %define ngx_mruby_src https://github.com/matsumoto-r/ngx_mruby.git
 # end of distribution specific definitions
 
