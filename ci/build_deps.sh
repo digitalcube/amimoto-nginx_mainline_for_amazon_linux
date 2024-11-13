@@ -10,6 +10,17 @@ yum -y update && yum -y install rpm-build git gcc make autoconf tmux \
   gd-devel perl-devel perl-ExtUtils-Embed geoip-devel gperftools-devel \
   bison wget gcc-c++ libuuid-devel
 
+(cd /usr/local/src \
+&& wget https://ftp.gnu.org/gnu/make/make-4.0.tar.gz \
+&& tar xvzf make-4.0.tar.gz \
+&& cd make-4.0 \
+&& ./configure \
+&& make \
+&& make install \
+&& yum erase make -y \
+&& ln -s /usr/local/bin/make /usr/bin/make)
+
+
 if [ "$CIRCLE_JOB" == "build1" ] ; then
   source ./OPENSSL_VERSION
   yum install -y rubygem-rake
