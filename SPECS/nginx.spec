@@ -26,7 +26,7 @@ Requires(post): chkconfig
 Summary: A high performance web server and reverse proxy server(for Amimoto Wordpress)
 Name: nginx
 Epoch: 1
-Version: 1.27.1
+Version: 1.27.2
 Release: 1%{?dist}.amimoto
 Packager: OpsRock LLC
 Vendor: nginx inc. via OpsRock LLC
